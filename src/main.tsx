@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import { stores } from './redux/stores';
 import App from './App';
 import './main.css';
+import './scrollbar.css';
 import 'antd/dist/antd.css';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
