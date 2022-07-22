@@ -15,7 +15,7 @@ const OrangeButton: React.FC<OrangeButtonProps> = ({
     <div
       onClick={onClick}
       // eslint-disable-next-line max-len
-      className={`bg-secondaryOrange w-[281px] h-[47px] text-subHeading text-white flex justify-center items-center rounded-[15px] cursor-pointer ${className}`}
+      className={`font-alegreya bg-secondaryOrange w-[281px] h-[47px] text-subHeading text-white flex justify-center items-center rounded-[15px] cursor-pointer ${className}`}
     >
       {children}
     </div>
