@@ -22,7 +22,7 @@ module.exports = {
         secondaryOrange: '#FFA06E',
         ternaryOrange: '#FDE3CF',
         primaryRed: '#F27267',
-        secondaryRed: '79C7D4',
+        secondaryRed: '#CC3A47',
         prymaryBlue: '#79C7D4',
         secondaryBlue: '#20566E',
         primaryGreen: '#C6DD68',
