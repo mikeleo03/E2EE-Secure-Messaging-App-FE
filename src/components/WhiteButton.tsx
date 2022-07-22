@@ -1,5 +1,4 @@
 import React from 'react';
-import { IconType } from 'react-icons';
 
 interface WhiteButtonProps {
   children: React.ReactNode;
