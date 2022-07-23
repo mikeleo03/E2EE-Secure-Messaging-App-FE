@@ -1,6 +1,8 @@
 import React from 'react';
 import WhiteButton from './WhiteButton';
 import { MdReport } from 'react-icons/md';
+import { useDispatch } from 'react-redux';
+import { setReportModal } from '../redux/actions/modal';
 
 interface DialogistProps {
   name: string;
@@ -9,6 +11,12 @@ interface DialogistProps {
 }
 
 const Dialogist: React.FC<DialogistProps> = ({ name, reveal, setReveal }) => {
+  const dispatch = useDispatch();
+
+  const openReportModal = () => {
+    dispatch(setReportModal(true));
+  };
+
   return (
     <div className="w-[441px] h-[570px] bg-primaryRed rounded-[15px] flex flex-col items-center">
       <div className="inline-block h-[245px] w-[245px] rounded-full bg-black mt-[57px] mb-[44px]"></div>
@@ -20,6 +28,7 @@ const Dialogist: React.FC<DialogistProps> = ({ name, reveal, setReveal }) => {
         Reveal My Name
       </WhiteButton>
       <WhiteButton
+        onClick={openReportModal}
         className="text-secondaryRed"
         color="red"
         Icon={<MdReport />}

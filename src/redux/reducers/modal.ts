@@ -46,10 +46,10 @@ const modal = (
   };
 
   const setReportModal = (): ModalState => {
-    const { payload: tutorial_modal } = action;
+    const { payload: report_modal } = action;
     return {
       ...state,
-      tutorial_modal,
+      report_modal,
     };
   };
 

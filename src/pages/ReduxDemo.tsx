@@ -5,6 +5,7 @@ import {
   setNewTopicModal,
   setPrivacyPolicyModal,
   setReportModal,
+  setTutorialModal,
 } from '../redux/actions/modal';
 import { modalSelector } from '../redux/selectors/modal';
 import { stores } from '../redux/stores';
@@ -69,7 +70,7 @@ const ReduxDemo: React.FC = () => {
   };
 
   const toggleTutorialModal = () => {
-    dispatch(setNewTopicModal(!tutorial_modal));
+    dispatch(setTutorialModal(!tutorial_modal));
   };
 
   const toggleReportModal = () => {
