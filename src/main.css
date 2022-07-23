@@ -1,3 +1,5 @@
+@import url('./assets/font/font.css');
+@import url('https://fonts.googleapis.com/css2?family=Alegreya+Sans:wght@300;400&family=Alegreya:wght@600&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -6,3 +8,13 @@
   padding: 0;
   margin: 0;
 }
+
+/* .ant-modal-body {
+  background-color: #79c7d4;
+  border-radius: 15px;
+}
+
+.modalStyle .ant-modal-content {
+  border-radius: 20px 20px 0 0;
+  background-color: #79c7d4;
+} */
