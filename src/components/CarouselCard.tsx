@@ -39,7 +39,7 @@ const slickSettings: Settings = {
 };
 const CarouselCard: React.FC = () => {
   return (
-    <div className="bg-primaryBlue m:w-[600px] lg:w-[800px] xl:w-[1000px] content-center my-0 mx-auto">
+    <div className="bg-primaryBlue xs:w-[250px] sm:w-[500px] md:w-[600px] lg:w-[800px] xl:w-[1000px] content-center my-0 mx-auto">
       <Slick {...slickSettings}>
         <Card text="1" />
         <Card text="2" />

@@ -4,6 +4,9 @@ import './main.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Home from './pages/Home';
 import ChatRoom from './pages/ChatRoom';
+import Matched from './pages/Matched';
+import MatchingUp from './pages/MatchingUp';
+import NoUserFound from './pages/NoUserFound';
 
 const App: React.FC = () => {
   return (
@@ -14,6 +17,9 @@ const App: React.FC = () => {
           <Route path="/" element={<Home />} />
           <Route path="/redux-demo" element={<ReduxDemo />} />
           <Route path="/chat-room" element={<ChatRoom />} />
+          <Route path="/matched" element={<Matched />} />
+          <Route path="/matching-up" element={<MatchingUp />} />
+          <Route path="/no-user-found" element={<NoUserFound />} />
         </Routes>
       </BrowserRouter>
     </div>
