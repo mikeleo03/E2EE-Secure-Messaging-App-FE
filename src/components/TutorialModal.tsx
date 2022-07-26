@@ -28,37 +28,37 @@ const TutorialModal: React.FC = () => {
             <div>
               <CaptionCard
                 text="1. Choose Your Topic."
-                className={`font-alegreyasans text-subHeading flex items-center pl-10 `}
+                className={`font-alegreyasans xs:text-body md:text-subHeading flex items-center pl-10 xs:w-[280px]`}
               />
             </div>
             <div>
               <CaptionCard
                 text="2. Click Finding Match Button to find a match."
-                className={`font-alegreyasans text-subHeading flex items-center pl-10 h-[80px]`}
+                className={`font-alegreyasans xs:text-body md:text-subHeading items-center pl-10 h-[80px] xs:w-[280px] xs:h-[50px]`}
               />
             </div>
             <div>
               <CaptionCard
                 text="3. Wait for a match to occur."
-                className={`font-alegreyasans text-subHeading flex items-center pl-10 h-[46px]`}
+                className={`font-alegreyasans xs:text-body md:text-subHeading flex items-center pl-10 xs:w-[280px]`}
               />
             </div>
             <div>
               <CaptionCard
                 text="4. Start Chatting with your match."
-                className={`font-alegreyasans text-subHeading flex items-center pl-10 h-[46px]`}
+                className={`font-alegreyasans xs:text-body md:text-subHeading flex items-center pl-10 xs:w-[280px]`}
               />
             </div>
             <div>
               <CaptionCard
                 text="5. Click Reveal My Name button together to reveal name."
-                className={`font-alegreyasans text-subHeading flex items-center pl-10 h-[80px]`}
+                className={`font-alegreyasans xs:text-body md:text-subHeading flex items-center pl-10 xs:w-[280px] h-[80px]`}
               />
             </div>
             <div>
               <CaptionCard
                 text="6. Click Next button for finding new match."
-                className={`font-alegreyasans text-subHeading flex items-center pl-10 h-[80px]`}
+                className={`font-alegreyasans xs:text-body md:text-subHeading flex items-center pl-10 xs:w-[280px] h-[80px]`}
               />
             </div>
           </div>
