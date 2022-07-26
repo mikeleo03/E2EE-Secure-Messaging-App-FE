@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { MouseEventHandler } from 'react';
 
 interface OrangeButtonProps {
   children: React.ReactNode;
   className?: string;
-  onClick?: () => void;
+  onClick?: MouseEventHandler;
 }
 
 const OrangeButton: React.FC<OrangeButtonProps> = ({
