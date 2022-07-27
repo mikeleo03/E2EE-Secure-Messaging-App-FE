@@ -28,37 +28,43 @@ const TutorialModal: React.FC = () => {
             <div>
               <CaptionCard
                 text="1. Choose Your Topic."
-                className={`font-alegreyasans xs:text-body md:text-subHeading flex items-center pl-10 xs:w-[280px]`}
+                className={`font-alegreyasans xs:text-body md:text-subHeading flex items-center px-10 xs:w-[280px] md:w-[700px]`}
               />
             </div>
             <div>
               <CaptionCard
                 text="2. Click Finding Match Button to find a match."
-                className={`font-alegreyasans xs:text-body md:text-subHeading items-center pl-10 h-[80px] xs:w-[280px] xs:h-[50px]`}
+                className={`font-alegreyasans xs:text-body md:text-subHeading items-center pl-10 h-[80px] xs:w-[280px] xs:h-[50px] md:w-[700px]`}
               />
             </div>
             <div>
               <CaptionCard
                 text="3. Wait for a match to occur."
-                className={`font-alegreyasans xs:text-body md:text-subHeading flex items-center pl-10 xs:w-[280px]`}
+                className={`font-alegreyasans xs:text-body md:text-subHeading flex items-center pl-10 xs:w-[280px] md:w-[700px]`}
               />
             </div>
             <div>
               <CaptionCard
-                text="4. Start Chatting with your match."
-                className={`font-alegreyasans xs:text-body md:text-subHeading flex items-center pl-10 xs:w-[280px]`}
+                text="4. If after a period of time you havent found a match, you will be asked to choose another topic."
+                className={`font-alegreyasans xs:text-body md:text-subHeading flex items-center pl-10 xs:w-[280px] xs:h-[80px] md:w-[700px] md:h-[80px]`}
               />
             </div>
             <div>
               <CaptionCard
-                text="5. Click Reveal My Name button together to reveal name."
-                className={`font-alegreyasans xs:text-body md:text-subHeading flex items-center pl-10 xs:w-[280px] h-[80px]`}
+                text="5. if there is a match found, you will be redirected to the chat room with your matching person."
+                className={`font-alegreyasans xs:text-body md:text-subHeading flex items-center pl-10 xs:w-[280px] md:w-[700px] h-[80px]`}
               />
             </div>
             <div>
               <CaptionCard
-                text="6. Click Next button for finding new match."
-                className={`font-alegreyasans xs:text-body md:text-subHeading flex items-center pl-10 xs:w-[280px] h-[80px]`}
+                text="6. Click Reveal My Name button together to reveal name."
+                className={`font-alegreyasans xs:text-body md:text-subHeading flex items-center pl-10 xs:w-[280px] md:w-[700px] h-[50px]`}
+              />
+            </div>
+            <div>
+              <CaptionCard
+                text="7. Click Next button for finding new match."
+                className={`font-alegreyasans xs:text-body md:text-subHeading flex items-center pl-10 xs:w-[280px] md:w-[700px] h-[80px]`}
               />
             </div>
           </div>
