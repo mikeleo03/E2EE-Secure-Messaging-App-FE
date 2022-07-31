@@ -7,6 +7,7 @@ import ChatRoom from './pages/ChatRoom';
 import Matched from './pages/Matched';
 import MatchingUp from './pages/MatchingUp';
 import NoUserFound from './pages/NoUserFound';
+import LoginPage from './pages/LoginPage';
 
 const App: React.FC = () => {
   return (
@@ -20,6 +21,7 @@ const App: React.FC = () => {
           <Route path="/matched" element={<Matched />} />
           <Route path="/matching-up" element={<MatchingUp />} />
           <Route path="/no-user-found" element={<NoUserFound />} />
+          <Route path="/login-page" element={<LoginPage />} />
         </Routes>
       </BrowserRouter>
     </div>
