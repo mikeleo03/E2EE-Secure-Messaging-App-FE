@@ -3,7 +3,7 @@ import ReduxDemo from './pages/ReduxDemo';
 import './main.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Home from './pages/Home';
-import ChatRoom from './pages/ChatRoom';
+import ChatRoom from './pages/Chatroom';
 import Matched from './pages/Matched';
 import MatchingUp from './pages/MatchingUp';
 import NoUserFound from './pages/NoUserFound';
