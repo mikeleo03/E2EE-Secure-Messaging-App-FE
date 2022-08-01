@@ -3,6 +3,7 @@ import React from 'react';
 import { AiOutlineSend } from 'react-icons/ai';
 import { ChatData } from '../interfaces/chat';
 import ChatBubble from './ChatBubble';
+import Dialogist from './Dialogist';
 
 interface ChatContainerProps {
   myName?: string;
@@ -16,18 +17,25 @@ const ChatContainer: React.FC<ChatContainerProps> = ({
   chatData,
 }) => {
   return (
-    <div className="bg-white h-[650px] w-[777px] lg:w-[450px] xl:w-[500px] xxl:w-[600px] 3xl:w-[777px] rounded-[15px]">
-      <div className="h-[95%] w-[100%] rounded-t-[15px] flex flex-col max-w-[100%] px-2 pt-2 ">
+    <div className="bg-white h-[100%] w-[777px] lg:w-[450px] xl:w-[500px] xxl:w-[600px] 3xl:w-[750px] rounded-[15px]">
+      <div className="h-[15%] lg:hidden">
+        <Dialogist
+          name={'Rocket Racoon'}
+          reveal={false}
+          setReveal={() => null}
+        />
+      </div>
+      <div className="xs:h-[65%] lg:h-[80%] w-[100%] rounded-t-[15px] flex flex-col max-w-[100%] px-2 pt-2 overflow-y-scroll overflow-x-hidden">
         {chatData.map((chat, idx) => (
           <ChatBubble key={idx} sent={myNIM === chat.sender ? true : false}>
             {chat.message}
           </ChatBubble>
         ))}
       </div>
-      <div className="h-[113px] bg-white border-solid border-t-2 border-primaryOrange flex justify-between items-center px-8  rounded-b-[15px]">
+      <div className="h-[20%] bg-white border-solid border-t-2 border-primaryOrange flex justify-between items-center px-8 rounded-b-[15px]">
         <textarea
           placeholder="Enter a message"
-          className="resize-none outline-none w-[100%] h-[100%] py-5 mr-10"
+          className="resize-none outline-none w-[100%] h-[80%] mr-10"
         />
 
         <div className="bg-primaryOrange h-[51px] w-[51px] min-w-[51px] rounded-full flex justify-center items-center text-[30px] text-white">

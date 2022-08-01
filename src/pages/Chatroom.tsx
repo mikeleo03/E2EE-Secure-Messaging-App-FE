@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import React, { useState } from 'react';
 import ChatContainer from '../components/ChatContainer';
 import Dialogist from '../components/Dialogist';
@@ -36,6 +37,56 @@ const dummyChat: ChatData[] = [
     receiver: '13519154',
     message: 'tes',
   },
+  {
+    sender: '13519027',
+    receiver: '13519154',
+    message: 'tes',
+  },
+  {
+    sender: '13519154',
+    receiver: '13519027',
+    message: 'tes',
+  },
+  {
+    sender: '13519027',
+    receiver: '13519154',
+    message: 'tes',
+  },
+  {
+    sender: '13519154',
+    receiver: '13519027',
+    message: 'tes',
+  },
+  {
+    sender: '13519027',
+    receiver: '13519154',
+    message: 'tessssssssssssssssssssssssssssssssssssssssssssssssssssssss',
+  },
+  {
+    sender: '13519027',
+    receiver: '13519154',
+    message: 'tes',
+  },
+  {
+    sender: '13519154',
+    receiver: '13519027',
+    message: 'tes',
+  },
+  {
+    sender: '13519027',
+    receiver: '13519154',
+    message: 'tes',
+  },
+  {
+    sender: '13519154',
+    receiver: '13519027',
+    message: 'tes',
+  },
+  {
+    sender: '13519027',
+    receiver: '13519154',
+    message: 'tes',
+  },
 ];
 
 const ChatRoom: React.FC = () => {
@@ -44,28 +95,30 @@ const ChatRoom: React.FC = () => {
   return (
     <>
       {/* <ReportModal /> */}
-      <div className="bg-primaryBlue w-[100vw] h-[100vh] xs:px-60 lg:px-20 xl:px-28 xxl:px-36 3xl:px-60">
-        <div className="grid grid-flow-col justify-items-stretch grid-cols-8">
-          <Heading className="justify-self-center pt-10 col-span-6 xs:invisible lg:visible">
+      <div className="bg-primaryBlue w-[100vw] xs:h-[100%] sm:h-[100vh] xs:px-10 sm:px-32 md:px-48 lg:px-20 xl:px-28 xxl:px-36 3xl:px-56">
+        <div className="grid grid-flow-col justify-items-stretch grid-cols-8 items-center xs:py-4 lg:pt-10 lg:pb-4">
+          <Heading className="justify-self-center col-span-6 xs:hidden lg:block">
             Chat Room
           </Heading>
           <Nametag
             name="Haikal Lazuardi Fadil"
             nim="13519027"
-            className="justify-self-end col-span-2"
+            className="xs:justify-self-center lg:justify-self-end xs:col-span-8 lg:col-span-2"
           />
         </div>
-        <div className="flex justify-between">
-          <div className="flex flex-col items-center xs:hidden lg:block">
+        <div className="flex justify-between xs:h-[800px] lg:h-[700px]">
+          <div className="flex flex-col items-center justify-around xs:hidden lg:flex">
             <Dialogist
               name={reveal ? dialogist : 'Rocket Racoon'}
               reveal={reveal}
               setReveal={setReveal}
             />
-            <OrangeButton className="my-[35px]">Find New Chats</OrangeButton>
             <OrangeButton>End Chat</OrangeButton>
           </div>
           <ChatContainer myNIM={myNIM} myName={myName} chatData={dummyChat} />
+        </div>
+        <div className="w-[100%] flex justify-center lg:hidden">
+          <OrangeButton>End Chat</OrangeButton>
         </div>
       </div>
     </>
