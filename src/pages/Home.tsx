@@ -12,7 +12,7 @@ const Home: React.FC = () => {
     navigate('/matching-up', { replace: true });
   }
   const handleRedirectSeeHistory: React.MouseEventHandler<HTMLButtonElement> = () => {
-    navigate('/', { replace: true });
+    navigate('/history');
   }
 
   return (
