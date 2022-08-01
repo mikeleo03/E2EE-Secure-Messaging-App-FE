@@ -16,7 +16,7 @@ const ChatContainer: React.FC<ChatContainerProps> = ({
   chatData,
 }) => {
   return (
-    <div className="bg-white h-[650px] w-[777px] rounded-[15px]">
+    <div className="bg-white h-[650px] w-[777px] lg:w-[450px] xl:w-[500px] xxl:w-[600px] 3xl:w-[777px] rounded-[15px]">
       <div className="h-[95%] w-[100%] rounded-t-[15px] flex flex-col max-w-[100%] px-2 pt-2 ">
         {chatData.map((chat, idx) => (
           <ChatBubble key={idx} sent={myNIM === chat.sender ? true : false}>

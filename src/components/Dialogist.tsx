@@ -18,7 +18,7 @@ const Dialogist: React.FC<DialogistProps> = ({ name, reveal, setReveal }) => {
   };
 
   return (
-    <div className="w-[441px] h-[570px] bg-primaryRed rounded-[15px] flex flex-col items-center">
+    <div className="lg:w-[380px] xl:w-[441px] h-[570px] bg-primaryRed rounded-[15px] flex flex-col items-center">
       <div className="inline-block h-[245px] w-[245px] rounded-full bg-black mt-[57px] mb-[44px]"></div>
       <div className="flex items-center mb-[19px]">
         <p className="font-alegreya text-[40px] m-0 mr-[15px]">{name}</p>
