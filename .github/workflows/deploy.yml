@@ -36,7 +36,7 @@ jobs:
                       git fetch --all
                       git checkout tags/${{ steps.get-version.outputs.VERSION }}
                       git restore .
-                      yarn install
+                      npm ci
                       yarn build --mode production
     deploy:
         needs: ['build']
