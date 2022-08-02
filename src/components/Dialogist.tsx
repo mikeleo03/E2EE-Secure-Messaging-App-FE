@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import React from 'react';
 import WhiteButton from './WhiteButton';
 import { MdReport } from 'react-icons/md';
@@ -18,23 +19,30 @@ const Dialogist: React.FC<DialogistProps> = ({ name, reveal, setReveal }) => {
   };
 
   return (
-    <div className="w-[441px] h-[570px] bg-primaryRed rounded-[15px] flex flex-col items-center">
-      <div className="inline-block h-[245px] w-[245px] rounded-full bg-black mt-[57px] mb-[44px]"></div>
-      <div className="flex items-center mb-[19px]">
-        <p className="font-alegreya text-[40px] m-0 mr-[15px]">{name}</p>
-        <div className="h-[28px] w-[28px] rounded-full bg-secondaryGreen"></div>
+    <div className="lg:w-[380px] xl:w-[441px] xs:h-[100%] lg:h-[570px] bg-primaryRed xs:rounded-t-[15px] lg:rounded-b-[15px] flex lg:flex-col items-center xs:justify-around lg:justify-center">
+      <div className="inline-block xs:h-[67px] lg:h-[245px] xs:w-[67px] lg:w-[245px] rounded-full bg-black lg:mt-[57px] lg:mb-[44px]"></div>
+      <div className="flex flex-col items-center">
+        <div className="flex items-center xs:mb-[8px] lg:mb-[19px]">
+          <p className="font-alegreya xs:text-body lg:text-[40px] m-0 mr-[15px]">
+            {name}
+          </p>
+          <div className="xs:h-[14px] lg:h-[28px] xs:w-[14px] lg:w-[28px] rounded-full bg-secondaryGreen"></div>
+        </div>
+        <WhiteButton
+          className="xs:mb-[7px] lg:mb-[23px]"
+          onClick={() => setReveal(!reveal)}
+        >
+          Reveal My Name
+        </WhiteButton>
+        <WhiteButton
+          onClick={openReportModal}
+          className="text-secondaryRed"
+          color="red"
+          Icon={<MdReport />}
+        >
+          Report
+        </WhiteButton>
       </div>
-      <WhiteButton className="mb-[23px]" onClick={() => setReveal(!reveal)}>
-        Reveal My Name
-      </WhiteButton>
-      <WhiteButton
-        onClick={openReportModal}
-        className="text-secondaryRed"
-        color="red"
-        Icon={<MdReport />}
-      >
-        Report
-      </WhiteButton>
     </div>
   );
 };
