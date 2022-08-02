@@ -21,7 +21,7 @@ module.exports = {
       colors: {
         primaryOrange: '#FFC176',
         secondaryOrange: '#FFA06E',
-        ternaryOrange: '#FDE3CF',
+        ternaryOrange: '#F8E9CE',
         primaryRed: '#F27267',
         secondaryRed: '#CC3A47',
         primaryBlue: '#79C7D4',
