@@ -17,7 +17,7 @@ const HistoryNametag: React.FC<HistoryNametagProps> = ({ name, lastChat }) => {
           <ProfilePicture className="w-[35px] md:w-[55px]" />
         </div>
         <div className="pl-5">
-          <p className="m-0 font-alegreya text-body md:text-subHeading font-bold">
+          <p className="m-0 font-alegreya text-body md:text-subHeading">
             {name}
           </p>
           <p className="m-0 font-alegreyasans text-xs md:text-body">

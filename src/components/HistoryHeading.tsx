@@ -9,7 +9,7 @@ const HistoryHeading: React.FC = () => {
   return (
     <div className="px-6 py-4 md:pt-5 md:pb-12">
       <button
-        className="font-alegreya font-bold hidden md:flex items-center gap-2.5 text-subHeading h-10"
+        className="font-alegreya hidden md:flex items-center gap-2.5 text-subHeading h-10"
         onClick={() => navigate('/', { replace: true })}
       >
         <FiChevronLeft
