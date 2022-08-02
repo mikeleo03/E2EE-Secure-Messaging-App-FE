@@ -8,6 +8,7 @@ import Matched from './pages/Matched';
 import MatchingUp from './pages/MatchingUp';
 import NoUserFound from './pages/NoUserFound';
 import History from './pages/History';
+import LoginPage from './pages/LoginPage';
 
 const App: React.FC = () => {
   return (
@@ -22,6 +23,7 @@ const App: React.FC = () => {
           <Route path="/matching-up" element={<MatchingUp />} />
           <Route path="/no-user-found" element={<NoUserFound />} />
           <Route path="/history" element={<History />} />
+          <Route path="/login" element={<LoginPage />} />
         </Routes>
       </BrowserRouter>
     </div>
