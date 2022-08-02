@@ -7,9 +7,9 @@ import Nametag from './Nametag';
 const HistoryHeading: React.FC = () => {
   const navigate = useNavigate();
   return (
-    <div className="px-6 py-4 md:pt-5 md:pb-12">
+    <div className="px-6 py-4 lg:pt-5 lg:pb-12">
       <button
-        className="font-alegreya hidden md:flex items-center gap-2.5 text-subHeading h-10"
+        className="font-alegreya hidden lg:flex items-center gap-2.5 text-subHeading h-10"
         onClick={() => navigate('/', { replace: true })}
       >
         <FiChevronLeft
@@ -20,15 +20,15 @@ const HistoryHeading: React.FC = () => {
         />
         <span className="mt-1">Main Menu</span>
       </button>
-      <div className="grid md:grid-cols-3 items-end">
+      <div className="grid lg:grid-cols-3 items-end">
         <div></div>
-        <Heading className="justify-self-center items-center m-0 mt-[22px] md:mt-0">
+        <Heading className="justify-self-center items-center m-0 mt-[22px] lg:mt-0">
           History
         </Heading>
         <Nametag
           name="Namanya siapa"
           nim="123456789"
-          className="justify-self-end row-start-1 md:col-start-3"
+          className="justify-self-end row-start-1 lg:col-start-3"
         />
       </div>
     </div>

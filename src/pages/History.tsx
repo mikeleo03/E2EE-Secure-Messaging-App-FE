@@ -1,14 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { IoIosSearch } from 'react-icons/io';
+import HistoryChat from '../components/HistoryChat';
 import HistoryHeading from '../components/HistoryHeading';
 import HistoryNametag from '../components/HistoryNametag';
 
 const History: React.FC = () => {
+  const [isHistorySelected, setIsHistorySelected] = useState(false);
+
   return (
     <div className="h-screen max-h-screen overflow-hidden">
       <HistoryHeading />
-      <div className="flex">
-        <div className="w-[644px] max-w-full flex-shrink-0 bg-primaryBlue">
+      <div className="flex relative">
+        <div className="w-full lg:w-[644px] max-w-full flex-shrink-0 bg-primaryBlue">
           <div className="bg-primaryRed px-4 md:px-12 py-[14px] md:py-6 flex items-center gap-6">
             <input
               type="text"
@@ -32,12 +35,16 @@ const History: React.FC = () => {
                       message: 'Ini chat terakhirnya',
                       time: new Date('5 July 2022 22:00+07:00'),
                     }}
+                    onClick={() => setIsHistorySelected(true)}
                   />
                 ))}
             </div>
           </div>
         </div>
-        <div className="hidden md:block flex-1 bg-[#F8E9CE] rounded-t-2xl -ml-4"></div>
+        <HistoryChat
+          show={isHistorySelected}
+          backCallback={() => setIsHistorySelected(false)}
+        />
       </div>
     </div>
   );
