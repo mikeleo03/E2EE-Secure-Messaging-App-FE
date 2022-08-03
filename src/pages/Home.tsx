@@ -12,10 +12,12 @@ const Home: React.FC = () => {
     HTMLButtonElement
   > = () => {
     navigate('/matching-up', { replace: true });
-  }
-  const handleRedirectSeeHistory: React.MouseEventHandler<HTMLButtonElement> = () => {
+  };
+  const handleRedirectSeeHistory: React.MouseEventHandler<
+    HTMLButtonElement
+  > = () => {
     navigate('/history');
-  }
+  };
 
   useEffect(() => {
     // TODO: Set socket auth
