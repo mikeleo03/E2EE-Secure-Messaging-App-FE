@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Identity from '../components/Identity';
 import OnlineUsers from '../components/OnlineUsers';
 import OrangeButton from '../components/OrangeButton';
 import Topics from '../components/Topics';
+import { authSelector } from '../redux/selectors/auth';
 import socket from '../socket';
 
 const Home: React.FC = () => {
@@ -12,13 +14,18 @@ const Home: React.FC = () => {
     HTMLButtonElement
   > = () => {
     navigate('/matching-up', { replace: true });
-  }
-  const handleRedirectSeeHistory: React.MouseEventHandler<HTMLButtonElement> = () => {
+  };
+  const handleRedirectSeeHistory: React.MouseEventHandler<
+    HTMLButtonElement
+  > = () => {
     navigate('/history');
-  }
+  };
+
+  const { token } = useSelector(authSelector);
 
   useEffect(() => {
     // TODO: Set socket auth
+    socket.auth = { token };
     socket.connect();
   }, []);
 
