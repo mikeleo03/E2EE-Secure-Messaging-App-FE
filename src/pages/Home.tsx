@@ -10,9 +10,11 @@ import socket from '../socket';
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
+  const { topic } = useSelector(authSelector);
   const handleRedirectFindMatch: React.MouseEventHandler<
     HTMLButtonElement
   > = () => {
+    socket.emit('matchmaking', topic.toString());
     navigate('/matchmaking', { replace: true });
   };
   const handleRedirectSeeHistory: React.MouseEventHandler<

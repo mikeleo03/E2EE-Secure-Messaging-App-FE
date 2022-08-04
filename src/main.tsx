@@ -9,11 +9,9 @@ import 'antd/dist/antd.css';
 import { BrowserRouter } from 'react-router-dom';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <Provider store={stores}>
-        <App />
-      </Provider>
-    </BrowserRouter>
-  </React.StrictMode>
+  <BrowserRouter>
+    <Provider store={stores}>
+      <App />
+    </Provider>
+  </BrowserRouter>
 );
