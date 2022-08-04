@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import {
@@ -9,7 +9,8 @@ import {
 } from '../redux/actions/modal';
 import { modalSelector } from '../redux/selectors/modal';
 import { stores } from '../redux/stores';
-import { Button } from 'antd';
+import { Button, Form, Input } from 'antd';
+import socket from '../socket';
 
 const ReduxDemo: React.FC = () => {
   // Redux adalah library react yang bertujuan untuk mencentralisasi data
@@ -77,6 +78,24 @@ const ReduxDemo: React.FC = () => {
     dispatch(setReportModal(!report_modal));
   };
 
+  const submitUsername = ({ username }: { username: string }) => {
+    socket.auth = { username };
+    socket.connect();
+  };
+
+  const submitTopic = ({ topic }: { topic: string }) => {
+    socket.emit('matchmaking', topic);
+    setStatus('Matching...');
+  };
+
+  useEffect(() => {
+    socket.on('matched', () => {
+      setStatus('Matched!');
+    });
+  }, []);
+
+  const [status, setStatus] = useState('');
+
   return (
     <div>
       <div>Privacy Modal: {privacy_policy_modal.toString()}</div>
@@ -98,6 +117,40 @@ const ReduxDemo: React.FC = () => {
           Report Modal
         </button>
       </div>
+      <br />
+      <div className="w-1/2">
+        <Form
+          wrapperCol={{ span: 16 }}
+          labelCol={{ span: 8 }}
+          name="basic"
+          onFinish={submitUsername}
+          autoComplete="off"
+        >
+          <Form.Item
+            label="Username"
+            name="username"
+            rules={[{ required: true, message: 'Please enter' }]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item>
+            <Button type="primary" htmlType="submit">
+              Submit
+            </Button>
+          </Form.Item>
+        </Form>
+        <Form name="topic" onFinish={submitTopic} autoComplete="off">
+          <Form.Item label="Topic" name="topic">
+            <Input />
+          </Form.Item>
+          <Form.Item>
+            <Button type="primary" htmlType="submit">
+              Submit
+            </Button>
+          </Form.Item>
+        </Form>
+      </div>
+      <h1 className="mt-4 text-lg font-bold">{status}</h1>
     </div>
   );
 };

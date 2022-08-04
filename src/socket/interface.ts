@@ -5,6 +5,7 @@ export interface ServerToClientEvents {
 
 export interface ClientToServerEvents {
   matchmaking: (topicId: string) => void;
+  matchNotFound: (topicId: string) => void;
   revealName: () => void;
   dummyMatch: (roomId: string) => void;
 }
