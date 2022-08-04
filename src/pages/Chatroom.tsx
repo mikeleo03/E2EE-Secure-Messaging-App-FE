@@ -11,83 +11,6 @@ import { ChatData } from '../interfaces/chat';
 const myNIM = '13519027';
 const myName = 'Haikal Lazuardi Fadil';
 const dialogist = 'Rafi Raihansyah';
-const dummyChat: ChatData[] = [
-  {
-    sender: '13519027',
-    receiver: '13519154',
-    message: 'tes',
-  },
-  {
-    sender: '13519154',
-    receiver: '13519027',
-    message: 'tes',
-  },
-  {
-    sender: '13519027',
-    receiver: '13519154',
-    message: 'tes',
-  },
-  {
-    sender: '13519154',
-    receiver: '13519027',
-    message: 'tes',
-  },
-  {
-    sender: '13519027',
-    receiver: '13519154',
-    message: 'tes',
-  },
-  {
-    sender: '13519027',
-    receiver: '13519154',
-    message: 'tes',
-  },
-  {
-    sender: '13519154',
-    receiver: '13519027',
-    message: 'tes',
-  },
-  {
-    sender: '13519027',
-    receiver: '13519154',
-    message: 'tes',
-  },
-  {
-    sender: '13519154',
-    receiver: '13519027',
-    message: 'tes',
-  },
-  {
-    sender: '13519027',
-    receiver: '13519154',
-    message: 'tessssssssssssssssssssssssssssssssssssssssssssssssssssssss',
-  },
-  {
-    sender: '13519027',
-    receiver: '13519154',
-    message: 'tes',
-  },
-  {
-    sender: '13519154',
-    receiver: '13519027',
-    message: 'tes',
-  },
-  {
-    sender: '13519027',
-    receiver: '13519154',
-    message: 'tes',
-  },
-  {
-    sender: '13519154',
-    receiver: '13519027',
-    message: 'tes',
-  },
-  {
-    sender: '13519027',
-    receiver: '13519154',
-    message: 'tes',
-  },
-];
 
 const ChatRoom: React.FC = () => {
   const [reveal, setReveal] = useState<boolean>(false);
@@ -115,7 +38,7 @@ const ChatRoom: React.FC = () => {
             />
             <OrangeButton>End Chat</OrangeButton>
           </div>
-          <ChatContainer myNIM={myNIM} myName={myName} chatData={dummyChat} />
+          <ChatContainer myNIM={myNIM} myName={myName} />
         </div>
         <div className="w-[100%] flex justify-center lg:hidden">
           <OrangeButton>End Chat</OrangeButton>
