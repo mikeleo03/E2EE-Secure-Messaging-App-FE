@@ -13,7 +13,7 @@ const Home: React.FC = () => {
   const handleRedirectFindMatch: React.MouseEventHandler<
     HTMLButtonElement
   > = () => {
-    navigate('/matching-up', { replace: true });
+    navigate('/matchmaking', { replace: true });
   };
   const handleRedirectSeeHistory: React.MouseEventHandler<
     HTMLButtonElement

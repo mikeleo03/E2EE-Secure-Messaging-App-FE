@@ -1,15 +1,13 @@
 import React from 'react';
 import ReduxDemo from './pages/ReduxDemo';
 import './main.css';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import Home from './pages/Home';
 import ChatRoom from './pages/Chatroom';
-import Matched from './pages/Matched';
-import MatchingUp from './pages/MatchingUp';
-import NoUserFound from './pages/NoUserFound';
 import History from './pages/History';
 import LoginPage from './pages/LoginPage';
 import RouteGuard, { RouteProps } from './utils/RouteGuard';
+import Matchmaking from './pages/Matchmaking';
 
 export const routes: RouteProps[] = [
   {
@@ -37,6 +35,11 @@ export const routes: RouteProps[] = [
     path: '/redux-demo',
     afterLoggedIn: true,
   },
+  {
+    Component: Matchmaking,
+    path: '/matchmaking',
+    afterLoggedIn: true,
+  },
 ];
 
 const App: React.FC = () => {
@@ -57,16 +60,4 @@ const App: React.FC = () => {
   );
 };
 
-// <div>
-//   <Routes>
-//     <Route path="/" element={<Home />} />
-//     <Route path="/redux-demo" element={<ReduxDemo />} />
-//     <Route path="/chat-room" element={<ChatRoom />} />
-//     <Route path="/matched" element={<Matched />} />
-//     <Route path="/matching-up" element={<MatchingUp />} />
-//     <Route path="/no-user-found" element={<NoUserFound />} />
-//     <Route path="/history" element={<History />} />
-//     <Route path="/login" element={<LoginPage />} />
-//   </Routes>
-// </div>
 export default App;
