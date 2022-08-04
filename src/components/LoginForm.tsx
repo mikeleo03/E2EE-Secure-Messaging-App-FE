@@ -4,7 +4,9 @@ import React, { useState } from 'react';
 import PrivacyPolicy from './PrivacyPolicy';
 import authServices from '../services/auth-services';
 import { useDispatch } from 'react-redux';
-import { setIsAuthorized, setToken } from '../redux/actions/auth';
+import { setIsAuthorized, setToken, setUserData } from '../redux/actions/auth';
+import { LoginStatusResponse } from '../interfaces/auth';
+import { stores } from '../redux/stores';
 
 const LoginForm: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -17,18 +19,34 @@ const LoginForm: React.FC = () => {
     username: string;
     password: string;
   }) => {
-    console.log('Success:', { username, password });
     setIsLoading(true);
     try {
-      const res = await authServices.login({ username, password });
+      const res = (await authServices.login({
+        username,
+        password,
+      })) as LoginStatusResponse;
       dispatch(setToken(res.jwt));
       dispatch(setIsAuthorized(true));
+      dispatch(
+        setUserData({
+          username: res.user.username,
+          provider: res.user.provider,
+          confirmed: res.user.confirmed,
+          blocked: res.user.blocked,
+          name: res.user.name,
+          sex: res.user.sex,
+          campus: res.user.campus,
+          faculty: res.user.faculty,
+          email: res.user.email,
+        })
+      );
       setVisible(true);
     } catch (error) {
       // TODO: Handle warning invalid usenrame/pasword
       console.error(error);
     } finally {
       setIsLoading(false);
+      console.log(stores.getState());
     }
   };
 
