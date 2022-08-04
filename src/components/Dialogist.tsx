@@ -19,7 +19,7 @@ const Dialogist: React.FC<DialogistProps> = ({ name, reveal, setReveal }) => {
   };
 
   return (
-    <div className="lg:w-[380px] xl:w-[441px] xs:h-[100%] lg:h-[570px] bg-primaryRed xs:rounded-t-[15px] lg:rounded-b-[15px] flex lg:flex-col items-center xs:justify-around lg:justify-center">
+    <div className="lg:w-[380px] xl:w-[441px] xs:h-[100%] lg:h-[570px] bg-primaryRed xs:rounded-t-[15px] lg:rounded-b-[15px] flex lg:flex-col items-center xs:justify-around lg:justify-center xs:py-2 lg:py-0">
       <div className="inline-block xs:h-[67px] lg:h-[245px] xs:w-[67px] lg:w-[245px] rounded-full bg-black lg:mt-[57px] lg:mb-[44px]"></div>
       <div className="flex flex-col items-center">
         <div className="flex items-center xs:mb-[8px] lg:mb-[19px]">
