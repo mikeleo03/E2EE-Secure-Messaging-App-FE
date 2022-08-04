@@ -1,5 +1,6 @@
 /* eslint-disable max-len */
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import ChatContainer from '../components/ChatContainer';
 import Dialogist from '../components/Dialogist';
 import Heading from '../components/Heading';
@@ -7,6 +8,8 @@ import Nametag from '../components/Nametag';
 import OrangeButton from '../components/OrangeButton';
 import ReportModal from '../components/ReportModal';
 import { ChatData } from '../interfaces/chat';
+import { authSelector } from '../redux/selectors/auth';
+import { trimString } from '../utils';
 
 const myNIM = '13519027';
 const myName = 'Haikal Lazuardi Fadil';
@@ -14,6 +17,7 @@ const dialogist = 'Rafi Raihansyah';
 
 const ChatRoom: React.FC = () => {
   const [reveal, setReveal] = useState<boolean>(false);
+  const { userData } = useSelector(authSelector);
 
   return (
     <>
@@ -24,8 +28,8 @@ const ChatRoom: React.FC = () => {
             Chat Room
           </Heading>
           <Nametag
-            name="Haikal Lazuardi Fadil"
-            nim="13519027"
+            name={trimString(userData?.name)}
+            nim={userData?.username}
             className="xs:justify-self-center lg:justify-self-end xs:col-span-8 lg:col-span-2"
           />
         </div>
