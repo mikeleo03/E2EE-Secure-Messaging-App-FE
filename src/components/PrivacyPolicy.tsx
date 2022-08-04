@@ -10,6 +10,12 @@ const PrivacyPolicy: React.FC = () => {
       navigate('/');
     }
   };
+
+  const [visible, setVisible] = useState(true);
+
+  const onClick = () => {
+    setVisible(false);
+  };
   
   const [value, setValue] = useState('');
   const onChange = (e: any) => {
@@ -69,7 +75,7 @@ const PrivacyPolicy: React.FC = () => {
             </Radio.Group>
           </Form.Item>
           <div className='flex justify-center h-auto'>
-            <Button htmlType='submit' onClick={navigateToHome} 
+            <Button htmlType='submit' onClick={onClick}
               style={{background:'#FFA06E', borderRadius:'15px', borderColor:'#FFA06E'}}>
               <p className='font-alegreya text-body px-16 text-white'>
                 Submit

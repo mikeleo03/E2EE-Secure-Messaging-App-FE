@@ -1,15 +1,23 @@
-import { Button, Form, Input, Modal} from 'antd';
+import { Button, Form, Input} from 'antd';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import React, { useState } from 'react';
-import PrivacyPolicy from './PrivacyPolicy';
+import React, { useRef, useState, useEffect } from 'react';
 
 const LoginForm: React.FC = () => {
   const onFinish = (values: any) => {
     console.log('Success:', values);
-    setVisible(true);
   };
 
-  const [visible, setVisible] = useState(false);
+  const userRef = useRef();
+  const errRef = useRef();
+
+  const [user, setUser] = useState('');
+  const [pwd, setPwd] = useState('');
+  const [errMsg, setErrMsg] = useState('');
+  const [success, setSuccess] = useState(false);
+
+  // useEffect(() => {
+  //   userRef.current.focus();
+  // }, []);
 
   return (
     <Form
@@ -23,7 +31,9 @@ const LoginForm: React.FC = () => {
         name="username"
         rules={[{ required: true, message: 'Please input your Username!' }]}
       >
-        <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
+        <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" 
+          // onChange={(e) => setUser(e.target.value)} value={user}
+        />
       </Form.Item>
       <Form.Item
         name="password"
@@ -33,6 +43,7 @@ const LoginForm: React.FC = () => {
           prefix={<LockOutlined className="site-form-item-icon" />}
           type="password"
           placeholder="Password"
+          // onChange={(e) => setPwd(e.target.value)} value={pwd}
         />
       </Form.Item>
 
@@ -44,16 +55,6 @@ const LoginForm: React.FC = () => {
           </Button>
         </div>
 
-        <Modal
-          centered
-          visible={visible}
-          bodyStyle={{backgroundColor: '#797979'}}
-          footer={null}
-          width={1000}
-          closable={false}
-        >
-          <PrivacyPolicy/>
-        </Modal>
       </Form.Item>
     </Form>
   );
