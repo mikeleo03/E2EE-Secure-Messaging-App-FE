@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import React from 'react';
+import React, { useState } from 'react';
 import { AiOutlineSend } from 'react-icons/ai';
 import { ChatData } from '../interfaces/chat';
 import ChatBubble from './ChatBubble';
@@ -8,14 +8,100 @@ import Dialogist from './Dialogist';
 interface ChatContainerProps {
   myName?: string;
   myNIM?: string;
-  chatData: ChatData[];
 }
 
-const ChatContainer: React.FC<ChatContainerProps> = ({
-  myName,
-  myNIM,
-  chatData,
-}) => {
+const dummyChat: ChatData[] = [
+  {
+    sender: '13519027',
+    receiver: '13519154',
+    message: 'tes',
+  },
+  {
+    sender: '13519154',
+    receiver: '13519027',
+    message: 'tes',
+  },
+  {
+    sender: '13519027',
+    receiver: '13519154',
+    message: 'tes',
+  },
+  {
+    sender: '13519154',
+    receiver: '13519027',
+    message: 'tes',
+  },
+  {
+    sender: '13519027',
+    receiver: '13519154',
+    message: 'tes',
+  },
+  {
+    sender: '13519027',
+    receiver: '13519154',
+    message: 'tes',
+  },
+  {
+    sender: '13519154',
+    receiver: '13519027',
+    message: 'tes',
+  },
+  {
+    sender: '13519027',
+    receiver: '13519154',
+    message: 'tes',
+  },
+  {
+    sender: '13519154',
+    receiver: '13519027',
+    message: 'tes',
+  },
+  {
+    sender: '13519027',
+    receiver: '13519154',
+    message: 'tessssssssssssssssssssssssssssssssssssssssssssssssssssssss',
+  },
+  {
+    sender: '13519027',
+    receiver: '13519154',
+    message: 'tes',
+  },
+  {
+    sender: '13519154',
+    receiver: '13519027',
+    message: 'tes',
+  },
+  {
+    sender: '13519027',
+    receiver: '13519154',
+    message: 'tes',
+  },
+  {
+    sender: '13519154',
+    receiver: '13519027',
+    message: 'tes',
+  },
+  {
+    sender: '13519027',
+    receiver: '13519154',
+    message: 'tes',
+  },
+];
+
+const ChatContainer: React.FC<ChatContainerProps> = ({ myName, myNIM }) => {
+  const [message, setMessage] = useState('');
+  const [chatData, setChatData] = useState([...dummyChat]);
+
+  const sendMessage = () => {
+    if (message !== '') {
+      setChatData([
+        ...chatData,
+        { sender: '13519027', receiver: '13519154', message },
+      ]);
+      setMessage('');
+    }
+  };
+
   return (
     <div className="bg-white h-[100%] w-[777px] lg:w-[450px] xl:w-[500px] xxl:w-[600px] 3xl:w-[750px] rounded-[15px]">
       <div className="h-[15%] lg:hidden">
@@ -36,9 +122,14 @@ const ChatContainer: React.FC<ChatContainerProps> = ({
         <textarea
           placeholder="Enter a message"
           className="resize-none outline-none w-[100%] h-[80%] mr-10"
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
         />
 
-        <div className="bg-primaryOrange h-[51px] w-[51px] min-w-[51px] rounded-full flex justify-center items-center text-[30px] text-white">
+        <div
+          className="bg-primaryOrange h-[51px] w-[51px] min-w-[51px] rounded-full flex justify-center items-center text-[30px] text-white"
+          onClick={sendMessage}
+        >
           <AiOutlineSend />
         </div>
       </div>
