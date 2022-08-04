@@ -18,7 +18,7 @@ const ChatRoom: React.FC = () => {
   return (
     <>
       {/* <ReportModal /> */}
-      <div className="bg-primaryBlue w-[100vw] xs:h-[100%] sm:h-[100vh] xs:px-10 sm:px-32 md:px-48 lg:px-20 xl:px-28 xxl:px-36 3xl:px-56">
+      <div className="bg-primaryBlue w-[100vw] xs:h-[100vh] sm:h-[100vh] xs:px-10 sm:px-32 md:px-48 lg:px-20 xl:px-28 xxl:px-36 3xl:px-60 overflow-hidden">
         <div className="grid grid-flow-col justify-items-stretch grid-cols-8 items-center xs:py-4 lg:pt-10 lg:pb-4">
           <Heading className="justify-self-center col-span-6 xs:hidden lg:block">
             Chat Room
@@ -29,14 +29,16 @@ const ChatRoom: React.FC = () => {
             className="xs:justify-self-center lg:justify-self-end xs:col-span-8 lg:col-span-2"
           />
         </div>
-        <div className="flex justify-between xs:h-[800px] lg:h-[700px]">
+        <div className="flex justify-between">
           <div className="flex flex-col items-center justify-around xs:hidden lg:flex">
             <Dialogist
               name={reveal ? dialogist : 'Rocket Racoon'}
               reveal={reveal}
               setReveal={setReveal}
             />
-            <OrangeButton>End Chat</OrangeButton>
+            <div className="mt-6">
+              <OrangeButton>End Chat</OrangeButton>
+            </div>
           </div>
           <ChatContainer myNIM={myNIM} myName={myName} />
         </div>
