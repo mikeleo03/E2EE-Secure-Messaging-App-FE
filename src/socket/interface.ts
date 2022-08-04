@@ -1,11 +1,12 @@
 export interface ServerToClientEvents {
   matched: () => void;
   revealName: (payload: object) => void;
+  message: (payload: { content: string; from: string }) => void;
 }
 
 export interface ClientToServerEvents {
-  matchmaking: (topicId: string) => void;
+  matchmaking: (topicId: string) => Promise<void>;
   matchNotFound: (topicId: string) => void;
   revealName: () => void;
-  dummyMatch: (roomId: string) => void;
+  message: (payload: { content: string }) => void;
 }
