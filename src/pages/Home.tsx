@@ -38,7 +38,7 @@ const Home: React.FC = () => {
         </OrangeButton>
         <OnlineUsers numUsers={1500} />
         <Topics />
-        <OrangeButton className="my-6" onClick={handleRedirectFindMatch}>
+        <OrangeButton onClick={handleRedirectFindMatch}>
           Find Match
         </OrangeButton>
       </div>

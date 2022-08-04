@@ -6,11 +6,14 @@ import App from './App';
 import './main.css';
 import './scrollbar.css';
 import 'antd/dist/antd.css';
+import { BrowserRouter } from 'react-router-dom';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <Provider store={stores}>
-      <App />
-    </Provider>
+    <BrowserRouter>
+      <Provider store={stores}>
+        <App />
+      </Provider>
+    </BrowserRouter>
   </React.StrictMode>
 );

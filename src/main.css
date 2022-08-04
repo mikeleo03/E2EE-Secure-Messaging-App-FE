@@ -18,3 +18,10 @@
   border-radius: 20px 20px 0 0;
   background-color: #79c7d4;
 } */
+
+.slick-slide > div {
+  display: grid;
+  place-items: center;
+  margin: auto;
+  padding: 0px;
+}
