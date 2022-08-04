@@ -1,5 +1,4 @@
 export interface ChatData {
-  sender: string;
-  receiver: string;
+  isFromMe: boolean;
   message: string;
 }

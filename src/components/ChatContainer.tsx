@@ -1,7 +1,8 @@
 /* eslint-disable max-len */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AiOutlineSend } from 'react-icons/ai';
 import { ChatData } from '../interfaces/chat';
+import socket from '../socket';
 import ChatBubble from './ChatBubble';
 import Dialogist from './Dialogist';
 
@@ -10,94 +11,23 @@ interface ChatContainerProps {
   myNIM?: string;
 }
 
-const dummyChat: ChatData[] = [
-  {
-    sender: '13519027',
-    receiver: '13519154',
-    message: 'tes',
-  },
-  {
-    sender: '13519154',
-    receiver: '13519027',
-    message: 'tes',
-  },
-  {
-    sender: '13519027',
-    receiver: '13519154',
-    message: 'tes',
-  },
-  {
-    sender: '13519154',
-    receiver: '13519027',
-    message: 'tes',
-  },
-  {
-    sender: '13519027',
-    receiver: '13519154',
-    message: 'tes',
-  },
-  {
-    sender: '13519027',
-    receiver: '13519154',
-    message: 'tes',
-  },
-  {
-    sender: '13519154',
-    receiver: '13519027',
-    message: 'tes',
-  },
-  {
-    sender: '13519027',
-    receiver: '13519154',
-    message: 'tes',
-  },
-  {
-    sender: '13519154',
-    receiver: '13519027',
-    message: 'tes',
-  },
-  {
-    sender: '13519027',
-    receiver: '13519154',
-    message: 'tessssssssssssssssssssssssssssssssssssssssssssssssssssssss',
-  },
-  {
-    sender: '13519027',
-    receiver: '13519154',
-    message: 'tes',
-  },
-  {
-    sender: '13519154',
-    receiver: '13519027',
-    message: 'tes',
-  },
-  {
-    sender: '13519027',
-    receiver: '13519154',
-    message: 'tes',
-  },
-  {
-    sender: '13519154',
-    receiver: '13519027',
-    message: 'tes',
-  },
-  {
-    sender: '13519027',
-    receiver: '13519154',
-    message: 'tes',
-  },
-];
-
 const ChatContainer: React.FC<ChatContainerProps> = ({ myName, myNIM }) => {
   const [message, setMessage] = useState('');
-  const [chatData, setChatData] = useState([...dummyChat]);
+  const [chatData, setChatData] = useState<ChatData[]>([]);
+
+  useEffect(() => {
+    socket.on('message', ({ content, from }) => {
+      console.log(chatData);
+      setChatData((prevData) => [
+        ...prevData,
+        { message: content, isFromMe: socket.id === from },
+      ]);
+    });
+  }, []);
 
   const sendMessage = () => {
     if (message !== '') {
-      setChatData([
-        ...chatData,
-        { sender: '13519027', receiver: '13519154', message },
-      ]);
+      socket.emit('message', { content: message });
       setMessage('');
     }
   };
@@ -113,7 +43,7 @@ const ChatContainer: React.FC<ChatContainerProps> = ({ myName, myNIM }) => {
       </div>
       <div className="xs:h-[65%] lg:h-[80%] w-[100%] rounded-t-[15px] flex flex-col max-w-[100%] px-2 pt-2 overflow-y-scroll overflow-x-hidden">
         {chatData.map((chat, idx) => (
-          <ChatBubble key={idx} sent={myNIM === chat.sender ? true : false}>
+          <ChatBubble key={idx} sent={chat.isFromMe}>
             {chat.message}
           </ChatBubble>
         ))}
