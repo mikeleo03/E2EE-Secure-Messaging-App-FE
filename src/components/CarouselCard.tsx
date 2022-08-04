@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import Slick, { Settings } from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Card from './Card';
+import { useSelector } from 'react-redux';
+import { authSelector } from '../redux/selectors/auth';
+import { useDispatch } from 'react-redux';
+import { setTopic } from '../redux/actions/auth';
 
 const slickSettings: Settings = {
   lazyLoad: 'ondemand',
@@ -37,18 +41,33 @@ const slickSettings: Settings = {
     },
   ],
 };
+
+const topics = [
+  { topic_id: 1, topic_name: 'Anjay1' },
+  { topic_id: 2, topic_name: 'Anjay2' },
+  { topic_id: 3, topic_name: 'Anjay3' },
+  { topic_id: 4, topic_name: 'Anjay4' },
+  { topic_id: 5, topic_name: 'Anjay5' },
+  { topic_id: 6, topic_name: 'Anjay6' },
+  { topic_id: 7, topic_name: 'Anjay7' },
+  { topic_id: 8, topic_name: 'Anjay8' },
+  { topic_id: 9, topic_name: 'Anjay9' },
+];
 const CarouselCard: React.FC = () => {
+  const { topic: selectedTopic } = useSelector(authSelector);
+  const dispatch = useDispatch();
+
   return (
     <div className="bg-primaryBlue xs:w-[250px] sm:w-[500px] md:w-[600px] lg:w-[800px] xl:w-[1000px] content-center my-0 mx-auto">
       <Slick {...slickSettings}>
-        <Card text="1" />
-        <Card text="2" />
-        <Card text="3" />
-        <Card text="4" />
-        <Card text="1" />
-        <Card text="2" />
-        <Card text="3" />
-        <Card text="4" />
+        {topics.map((topic, _) => (
+          <Card
+            key={topic.topic_id}
+            text={topic.topic_name}
+            selected={selectedTopic === topic.topic_id}
+            onClick={() => dispatch(setTopic(topic.topic_id))}
+          />
+        ))}
       </Slick>
     </div>
   );

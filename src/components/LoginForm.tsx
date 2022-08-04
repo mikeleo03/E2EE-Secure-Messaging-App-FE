@@ -1,23 +1,56 @@
-import { Button, Form, Input} from 'antd';
+import { Button, Form, Input, Modal } from 'antd';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import PrivacyPolicy from './PrivacyPolicy';
+import authServices from '../services/auth-services';
+import { useDispatch } from 'react-redux';
+import { setIsAuthorized, setToken, setUserData } from '../redux/actions/auth';
+import { LoginStatusResponse } from '../interfaces/auth';
+import { stores } from '../redux/stores';
 
 const LoginForm: React.FC = () => {
-  const onFinish = (values: any) => {
-    console.log('Success:', values);
+  const [isLoading, setIsLoading] = useState(false);
+  const dispatch = useDispatch();
+
+  const onFinish = async ({
+    username,
+    password,
+  }: {
+    username: string;
+    password: string;
+  }) => {
+    setIsLoading(true);
+    try {
+      const res = (await authServices.login({
+        username,
+        password,
+      })) as LoginStatusResponse;
+      dispatch(setToken(res.jwt));
+      dispatch(setIsAuthorized(true));
+      dispatch(
+        setUserData({
+          username: res.user.username,
+          provider: res.user.provider,
+          confirmed: res.user.confirmed,
+          blocked: res.user.blocked,
+          name: res.user.name,
+          sex: res.user.sex,
+          campus: res.user.campus,
+          faculty: res.user.faculty,
+          email: res.user.email,
+        })
+      );
+      setVisible(true);
+    } catch (error) {
+      // TODO: Handle warning invalid usenrame/pasword
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+      console.log(stores.getState());
+    }
   };
 
-  const userRef = useRef();
-  const errRef = useRef();
-
-  const [user, setUser] = useState('');
-  const [pwd, setPwd] = useState('');
-  const [errMsg, setErrMsg] = useState('');
-  const [success, setSuccess] = useState(false);
-
-  // useEffect(() => {
-  //   userRef.current.focus();
-  // }, []);
+  const [visible, setVisible] = useState(false);
 
   return (
     <Form
@@ -31,30 +64,48 @@ const LoginForm: React.FC = () => {
         name="username"
         rules={[{ required: true, message: 'Please input your Username!' }]}
       >
-        <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" 
-          // onChange={(e) => setUser(e.target.value)} value={user}
+        <Input
+          prefix={<UserOutlined className="site-form-item-icon" />}
+          placeholder="Username"
         />
       </Form.Item>
       <Form.Item
         name="password"
         rules={[{ required: true, message: 'Please input your Password!' }]}
       >
-        <Input
+        <Input.Password
           prefix={<LockOutlined className="site-form-item-icon" />}
           type="password"
           placeholder="Password"
-          // onChange={(e) => setPwd(e.target.value)} value={pwd}
         />
       </Form.Item>
 
       <Form.Item>
-        <div className='flex justify-center h-auto'>
-          <Button type="primary" htmlType='submit'
-            style={{background:'#4699B7', borderRadius:'15px', borderColor:'#4699B7'}}>
-            <p className='font-alegreya text-body px-5 text-white'>Sign In</p>
+        <div className="flex justify-center h-auto">
+          <Button
+            type="primary"
+            htmlType="submit"
+            style={{
+              background: '#4699B7',
+              borderRadius: '15px',
+              borderColor: '#4699B7',
+            }}
+            loading={isLoading}
+          >
+            <p className="font-alegreya text-body px-5 text-white">Sign In</p>
           </Button>
         </div>
 
+        <Modal
+          visible={visible}
+          bodyStyle={{ backgroundColor: '#797979' }}
+          style={{ top: '1%' }}
+          footer={null}
+          width={900}
+          closable={false}
+        >
+          <PrivacyPolicy />
+        </Modal>
       </Form.Item>
     </Form>
   );

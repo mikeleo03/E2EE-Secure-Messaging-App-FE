@@ -4,7 +4,7 @@ import ProfilePicture from './ProfilePicture';
 
 interface NameTagProps {
   name: string;
-  nim: string;
+  nim?: string;
   className?: string;
 }
 
