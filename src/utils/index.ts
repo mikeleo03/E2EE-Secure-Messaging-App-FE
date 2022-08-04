@@ -2,7 +2,7 @@ export const sleep = async (ms: number): Promise<void> => {
   return new Promise((r) => setTimeout(r, ms));
 };
 
-export const trimString = (str = ''): string => {
+export const trimString = (str = '') => {
   let spaceCount = 0;
   let endSpaceIndex = 0;
   const endWordIndex = 15;
@@ -16,10 +16,9 @@ export const trimString = (str = ''): string => {
     }
   }
   const trimmedString =
-    spaceCount === 2
-      ? str.substr(0, endWordIndex) +
-        (endSpaceIndex > endWordIndex ? '...' : '')
-      : str;
+    endSpaceIndex <= endWordIndex
+      ? str.substring(0, endSpaceIndex)
+      : str.substring(0, endWordIndex) + '...';
 
   return trimmedString;
 };
