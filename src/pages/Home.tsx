@@ -7,8 +7,6 @@ import OrangeButton from '../components/OrangeButton';
 import Topics from '../components/Topics';
 import { authSelector } from '../redux/selectors/auth';
 import socket from '../socket';
-import {Modal} from 'antd';
-import PrivacyPolicy from '../components/PrivacyPolicy';
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
@@ -35,16 +33,6 @@ const Home: React.FC = () => {
 
   return (
     <div className="bg-white w-[100vw] h-[100vh] relative py-8">
-      <Modal
-        centered
-        visible={visible}
-        bodyStyle={{backgroundColor: '#797979'}}
-        footer={null}
-        width={1000}
-        closable={false}
-      >
-        <PrivacyPolicy/>
-      </Modal>
       <div className="flex flex-col items-center text-center">
         <Identity name={userData?.name} nim={userData?.username}></Identity>
         <OrangeButton className="mt-3 mb-6" onClick={handleRedirectSeeHistory}>
