@@ -8,6 +8,10 @@ import { useSelector } from 'react-redux';
 import { authSelector } from '../redux/selectors/auth';
 import { useDispatch } from 'react-redux';
 import { setTopic } from '../redux/actions/auth';
+import { TopicData } from '../interfaces';
+import { setNewTopicModal } from '../redux/actions/modal';
+import { stores } from '../redux/stores';
+import { BsPlus } from 'react-icons/bs';
 
 const slickSettings: Settings = {
   lazyLoad: 'ondemand',
@@ -42,25 +46,24 @@ const slickSettings: Settings = {
   ],
 };
 
-const topics = [
-  { topic_id: 1, topic_name: 'Anjay1' },
-  { topic_id: 2, topic_name: 'Anjay2' },
-  { topic_id: 3, topic_name: 'Anjay3' },
-  { topic_id: 4, topic_name: 'Anjay4' },
-  { topic_id: 5, topic_name: 'Anjay5' },
-  { topic_id: 6, topic_name: 'Anjay6' },
-  { topic_id: 7, topic_name: 'Anjay7' },
-  { topic_id: 8, topic_name: 'Anjay8' },
-  { topic_id: 9, topic_name: 'Anjay9' },
-];
-const CarouselCard: React.FC = () => {
+interface CarouselCardProps {
+  topics?: TopicData[];
+}
+
+const CarouselCard: React.FC<CarouselCardProps> = ({ topics }) => {
   const { topic: selectedTopic } = useSelector(authSelector);
   const dispatch = useDispatch();
+
+  const openNewTopicModal = (topic_id: number) => {
+    dispatch(setTopic(topic_id));
+    dispatch(setNewTopicModal(true));
+    console.log(stores.getState());
+  };
 
   return (
     <div className="bg-primaryBlue xs:w-[250px] sm:w-[500px] md:w-[600px] lg:w-[800px] xl:w-[1000px] content-center my-0 mx-auto">
       <Slick {...slickSettings}>
-        {topics.map((topic, _) => (
+        {topics?.map((topic, _) => (
           <Card
             key={topic.topic_id}
             text={topic.topic_name}
@@ -68,6 +71,13 @@ const CarouselCard: React.FC = () => {
             onClick={() => dispatch(setTopic(topic.topic_id))}
           />
         ))}
+        <Card
+          key={topics ? topics.length + 1 : 0}
+          text="New Topic"
+          selected={selectedTopic === (topics ? topics.length + 1 : 0)}
+          onClick={() => openNewTopicModal(topics ? topics.length + 1 : 0)}
+          Icon={<BsPlus />}
+        />
       </Slick>
     </div>
   );
