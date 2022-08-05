@@ -97,11 +97,11 @@ const LoginForm: React.FC = () => {
         </div>
 
         <Modal
-          centered
           visible={visible}
           bodyStyle={{ backgroundColor: '#797979' }}
+          style={{ top: '1%' }}
           footer={null}
-          width={1000}
+          width={900}
           closable={false}
         >
           <PrivacyPolicy />
