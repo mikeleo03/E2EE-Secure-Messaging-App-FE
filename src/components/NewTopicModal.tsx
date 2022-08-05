@@ -37,7 +37,7 @@ const NewTopicModal: React.FC = () => {
         okButtonProps={{
           disabled: otherValue === '',
         }}
-        visible={true}
+        visible={new_topic_modal}
         onOk={handleOk}
         confirmLoading={confirmLoading}
         onCancel={handleCancel}

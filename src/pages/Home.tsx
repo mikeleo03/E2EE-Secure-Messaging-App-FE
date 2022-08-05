@@ -2,11 +2,24 @@ import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Identity from '../components/Identity';
+import NewTopicModal from '../components/NewTopicModal';
 import OnlineUsers from '../components/OnlineUsers';
 import OrangeButton from '../components/OrangeButton';
 import Topics from '../components/Topics';
 import { authSelector } from '../redux/selectors/auth';
 import socket from '../socket';
+
+const topics = [
+  { topic_id: 1, topic_name: 'Anjay1' },
+  { topic_id: 2, topic_name: 'Anjay2' },
+  { topic_id: 3, topic_name: 'Anjay3' },
+  { topic_id: 4, topic_name: 'Anjay4' },
+  { topic_id: 5, topic_name: 'Anjay5' },
+  { topic_id: 6, topic_name: 'Anjay6' },
+  { topic_id: 7, topic_name: 'Anjay7' },
+  { topic_id: 8, topic_name: 'Anjay8' },
+  { tpic_id: 9, topic_name: 'Anjay9' },
+];
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
@@ -14,9 +27,12 @@ const Home: React.FC = () => {
   const handleRedirectFindMatch: React.MouseEventHandler<
     HTMLButtonElement
   > = () => {
-    socket.emit('matchmaking', topic.toString());
-    navigate('/matchmaking', { replace: true });
+    if (topic != -1 && topic != topics.length + 1) {
+      socket.emit('matchmaking', topic.toString());
+      navigate('/matchmaking', { replace: true });
+    }
   };
+
   const handleRedirectSeeHistory: React.MouseEventHandler<
     HTMLButtonElement
   > = () => {
@@ -32,19 +48,25 @@ const Home: React.FC = () => {
   }, []);
 
   return (
-    <div className="bg-white w-[100vw] h-[100vh] relative py-8">
-      <div className="flex flex-col items-center text-center">
-        <Identity name={userData?.name} nim={userData?.username}></Identity>
-        <OrangeButton className="mt-3 mb-6" onClick={handleRedirectSeeHistory}>
-          See Chat History
-        </OrangeButton>
-        <OnlineUsers numUsers={1500} />
-        <Topics />
-        <OrangeButton onClick={handleRedirectFindMatch}>
-          Find Match
-        </OrangeButton>
+    <>
+      <NewTopicModal />
+      <div className="bg-white w-[100vw] h-[100vh] relative py-8">
+        <div className="flex flex-col items-center text-center">
+          <Identity name={userData?.name} nim={userData?.username}></Identity>
+          <OrangeButton
+            className="mt-3 mb-6"
+            onClick={handleRedirectSeeHistory}
+          >
+            See Chat History
+          </OrangeButton>
+          <OnlineUsers numUsers={1500} />
+          <Topics topics={topics} />
+          <OrangeButton onClick={handleRedirectFindMatch}>
+            Find Match
+          </OrangeButton>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

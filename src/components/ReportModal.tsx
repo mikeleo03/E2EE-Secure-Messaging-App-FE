@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setReportModal } from '../redux/actions/modal';
 import { modalSelector } from '../redux/selectors/modal';
+import { submitReport } from '../services/modal-services';
+import socket from '../socket';
 import Heading from './Heading';
 
 const ReportModal: React.FC = () => {
@@ -15,6 +17,7 @@ const ReportModal: React.FC = () => {
   const [reportValue, setReportValue] = useState(0);
   const [otherValue, setOtherValue] = useState('');
   const [modalText, setModalText] = useState('Content of the modal');
+  console.log(socket);
 
   //   const handleOk = () => {
   //     return new Promise((resolve, reject) => {
@@ -30,13 +33,17 @@ const ReportModal: React.FC = () => {
     setReportValue(e.target.value);
   };
 
-  const handleOk = () => {
+  const handleOk = async () => {
     setModalText('Thank you for your report!');
     setConfirmLoading(true);
-    setTimeout(() => {
-      dispatch(setReportModal(false));
-      setConfirmLoading(false);
-    }, 2000);
+    // setTimeout(() => {
+    //   dispatch(setReportModal(false));
+    //   setConfirmLoading(false);
+    // }, 2000);
+
+    // try{
+    //   const res = (await submitReport({}))
+    // }
   };
 
   const handleCancel = () => {
@@ -50,7 +57,7 @@ const ReportModal: React.FC = () => {
           disabled:
             reportValue === 0 || (reportValue === 5 && otherValue === ''),
         }}
-        visible={true}
+        visible={report_modal}
         onOk={handleOk}
         confirmLoading={confirmLoading}
         onCancel={handleCancel}
