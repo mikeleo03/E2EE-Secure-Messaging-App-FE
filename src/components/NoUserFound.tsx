@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import OrangeButton from '../components/OrangeButton';
@@ -10,13 +11,17 @@ const Matched: React.FC = () => {
   };
 
   return (
-    <div className="bg-white flex flex-col items-center justify-center h-screen">
+    <motion.div
+      className="bg-white flex flex-col items-center justify-center h-screen"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+    >
       <img className="w-[300px] md:w-[421px] mb-5" src={image} />
       <div className="font-magilio text-heading">No ser ound</div>
       <OrangeButton className="my-6" onClick={handleRedirect}>
         Back To Main Page
       </OrangeButton>
-    </div>
+    </motion.div>
   );
 };
 
