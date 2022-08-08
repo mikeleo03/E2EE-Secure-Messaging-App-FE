@@ -7,10 +7,11 @@ import NewTopicModal from '../components/NewTopicModal';
 import OnlineUsers from '../components/OnlineUsers';
 import OrangeButton from '../components/OrangeButton';
 import Topics from '../components/Topics';
+import { TopicData } from '../interfaces';
 import { authSelector } from '../redux/selectors/auth';
 import socket from '../socket';
 
-const topics = [
+const topics: TopicData[] = [
   { topic_id: 1, topic_name: 'Anjay1' },
   { topic_id: 2, topic_name: 'Anjay2' },
   { topic_id: 3, topic_name: 'Anjay3' },
@@ -19,7 +20,7 @@ const topics = [
   { topic_id: 6, topic_name: 'Anjay6' },
   { topic_id: 7, topic_name: 'Anjay7' },
   { topic_id: 8, topic_name: 'Anjay8' },
-  { tpic_id: 9, topic_name: 'Anjay9' },
+  { topic_id: 9, topic_name: 'Anjay9' },
 ];
 
 const Home: React.FC = () => {
