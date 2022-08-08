@@ -1,3 +1,4 @@
+import { message } from 'antd';
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -30,6 +31,8 @@ const Home: React.FC = () => {
     if (topic != -1 && topic != topics.length + 1) {
       socket.emit('matchmaking', topic.toString());
       navigate('/matchmaking', { replace: true });
+    } else {
+      message.error('Select a topic!');
     }
   };
 
