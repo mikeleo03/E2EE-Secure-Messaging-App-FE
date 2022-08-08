@@ -2,15 +2,23 @@ import React from 'react';
 
 interface CardProps {
   text?: string;
+  hot?: boolean;
   link?: string;
   onClick?: () => void;
   selected: boolean;
   Icon?: JSX.Element;
 }
 
-const Card: React.FC<CardProps> = ({ text, link, selected, onClick, Icon }) => {
+const Card: React.FC<CardProps> = ({
+  text,
+  hot,
+  link,
+  selected,
+  onClick,
+  Icon,
+}) => {
   return (
-    <div onClick={onClick}>
+    <div onClick={onClick} className="relative">
       <div
         className={`bg-primaryGreen ${
           text === 'New Topic' ? 'h-[145px]' : 'h-[100px]'
@@ -31,6 +39,17 @@ const Card: React.FC<CardProps> = ({ text, link, selected, onClick, Icon }) => {
           }`}
         >
           {text}
+        </div>
+      ) : (
+        <></>
+      )}
+
+      {hot ? (
+        <div
+          className="bg-secondaryRed text-white h-[40px] w-[40px] rounded-full flex items-center justify-center
+         absolute top-0 right-0 opacity-80 font-alegreya tracking-widest"
+        >
+          Hot
         </div>
       ) : (
         <></>
