@@ -67,6 +67,7 @@ const CarouselCard: React.FC<CarouselCardProps> = ({ topics }) => {
           <Card
             key={topic.topic_id}
             text={topic.topic_name}
+            hot={topic.hot_status}
             selected={selectedTopic === topic.topic_id}
             onClick={() => dispatch(setTopic(topic.topic_id))}
           />

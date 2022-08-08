@@ -19,3 +19,10 @@ export const submitReport = async ({
   });
   return res.data;
 };
+
+export const requestNewTopic = async (name: string) => {
+  const res = await services.post('/request-topics', {
+    name,
+  });
+  return res.data;
+};
