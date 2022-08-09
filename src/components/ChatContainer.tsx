@@ -9,9 +9,16 @@ import Dialogist from './Dialogist';
 interface ChatContainerProps {
   myName?: string;
   myNIM?: string;
+  dialogist?: string;
+  handleReveal: () => void;
 }
 
-const ChatContainer: React.FC<ChatContainerProps> = ({ myName, myNIM }) => {
+const ChatContainer: React.FC<ChatContainerProps> = ({
+  myName,
+  myNIM,
+  dialogist,
+  handleReveal,
+}) => {
   const [message, setMessage] = useState('');
   const [chatData, setChatData] = useState<ChatData[]>([]);
 
@@ -54,11 +61,7 @@ const ChatContainer: React.FC<ChatContainerProps> = ({ myName, myNIM }) => {
   return (
     <div className="bg-white h-[100%] w-[777px] lg:w-[450px] xl:w-[500px] xxl:w-[600px] 3xl:w-[680px] rounded-[15px]">
       <div className="h-[15%] lg:hidden">
-        <Dialogist
-          name={'Rocket Racoon'}
-          reveal={false}
-          setReveal={() => null}
-        />
+        <Dialogist dialogist={dialogist} handleReveal={handleReveal} />
       </div>
       <div className="xs:h-[55vh] lg:h-[68vh] w-[100%] lg:rounded-t-[15px] flex flex-col max-w-[100%] px-2 pt-2 overflow-y-scroll overflow-x-hidden">
         {chatData.map((chat, idx) => (
@@ -78,7 +81,7 @@ const ChatContainer: React.FC<ChatContainerProps> = ({ myName, myNIM }) => {
 
         <div
           onClick={sendMessage}
-          className="bg-primaryOrange h-[51px] w-[51px] min-w-[51px] rounded-full flex justify-center items-center text-[30px] text-white"
+          className="bg-primaryOrange h-[51px] w-[51px] min-w-[51px] rounded-full flex justify-center items-center text-[30px] text-white cursor-pointer"
         >
           <AiOutlineSend />
         </div>
