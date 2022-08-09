@@ -18,7 +18,7 @@ const Card: React.FC<CardProps> = ({
   Icon,
 }) => {
   return (
-    <div onClick={onClick} className="relative">
+    <div onClick={onClick} className="relative cursor-pointer">
       <div
         className={`bg-primaryGreen ${
           text === 'New Topic' ? 'h-[145px]' : 'h-[100px]'

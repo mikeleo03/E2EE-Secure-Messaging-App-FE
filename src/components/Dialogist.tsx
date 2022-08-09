@@ -1,21 +1,39 @@
 /* eslint-disable max-len */
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import WhiteButton from './WhiteButton';
 import { MdReport } from 'react-icons/md';
 import { useDispatch } from 'react-redux';
 import { setReportModal } from '../redux/actions/modal';
+import axios from 'axios';
 
 interface DialogistProps {
-  name: string;
-  reveal: boolean;
-  setReveal: (reveal: boolean) => void;
+  dialogist?: string;
+  handleReveal: () => void;
 }
 
-const Dialogist: React.FC<DialogistProps> = ({ name, reveal, setReveal }) => {
+const Dialogist: React.FC<DialogistProps> = ({ dialogist, handleReveal }) => {
   const dispatch = useDispatch();
+  const [randomName, setRandomName] = useState('');
+  const [revealButtonText, setRevealButtonText] = useState(
+    'Request Name Reveal'
+  );
+
+  useEffect(() => {
+    getRandomName();
+  }, []);
+
+  const getRandomName = async () => {
+    const res = await axios.get('https://randomuser.me/api/');
+    setRandomName('Anonymous ' + res.data.results[0].name.first);
+  };
 
   const openReportModal = () => {
     dispatch(setReportModal(true));
+  };
+
+  const requestNameReveal = () => {
+    setRevealButtonText('Requested');
+    handleReveal();
   };
 
   return (
@@ -24,15 +42,14 @@ const Dialogist: React.FC<DialogistProps> = ({ name, reveal, setReveal }) => {
       <div className="flex flex-col items-center">
         <div className="flex items-center xs:mb-[8px] lg:mb-[19px]">
           <p className="font-alegreya xs:text-body lg:text-[40px] m-0 mr-[15px]">
-            {name}
+            {dialogist || randomName}
           </p>
-          <div className="xs:h-[14px] lg:h-[28px] xs:w-[14px] lg:w-[28px] rounded-full bg-secondaryGreen"></div>
         </div>
         <WhiteButton
           className="xs:mb-[7px] lg:mb-[23px]"
-          onClick={() => setReveal(!reveal)}
+          onClick={requestNameReveal}
         >
-          Reveal My Name
+          {dialogist ? 'Revealed' : revealButtonText}
         </WhiteButton>
         <WhiteButton
           onClick={openReportModal}

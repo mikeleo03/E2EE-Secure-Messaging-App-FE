@@ -3,7 +3,7 @@ import React from 'react';
 import ProfilePicture from './ProfilePicture';
 
 interface NameTagProps {
-  name: string;
+  name?: string;
   nim?: string;
   className?: string;
 }
