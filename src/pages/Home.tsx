@@ -2,11 +2,15 @@ import { message } from 'antd';
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import Cookies from 'universal-cookie';
 import Identity from '../components/Identity';
 import NewTopicModal from '../components/NewTopicModal';
 import OnlineUsers from '../components/OnlineUsers';
 import OrangeButton from '../components/OrangeButton';
 import Topics from '../components/Topics';
+import TutorialModal from '../components/TutorialModal';
+import WhiteButton from '../components/WhiteButton';
+import config from '../config';
 import { TopicData } from '../interfaces';
 import { authSelector } from '../redux/selectors/auth';
 import socket from '../socket';
@@ -37,6 +41,13 @@ const Home: React.FC = () => {
     }
   };
 
+  const handleLogout: React.MouseEventHandler<HTMLButtonElement> = () => {
+    console.log('logout');
+    const cookie = new Cookies();
+    cookie.remove('token', { path: '/', domain: config.DOMAIN_URL });
+    window.location.reload();
+  };
+
   const handleRedirectSeeHistory: React.MouseEventHandler<
     HTMLButtonElement
   > = () => {
@@ -53,10 +64,14 @@ const Home: React.FC = () => {
 
   return (
     <>
+      <TutorialModal />
       <NewTopicModal />
       <div className="bg-white w-[100vw] h-[100vh] relative py-8">
         <div className="flex flex-col items-center text-center">
           <Identity name={userData?.name} nim={userData?.username}></Identity>
+          <OrangeButton className="mt-3 mb-6" onClick={handleLogout}>
+            Logout
+          </OrangeButton>
           <OrangeButton
             className="mt-3 mb-6"
             onClick={handleRedirectSeeHistory}

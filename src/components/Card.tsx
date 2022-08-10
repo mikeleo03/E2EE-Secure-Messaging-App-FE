@@ -9,14 +9,7 @@ interface CardProps {
   Icon?: JSX.Element;
 }
 
-const Card: React.FC<CardProps> = ({
-  text,
-  hot,
-  link,
-  selected,
-  onClick,
-  Icon,
-}) => {
+const Card: React.FC<CardProps> = ({ text, hot, selected, onClick, Icon }) => {
   return (
     <div onClick={onClick} className="relative cursor-pointer">
       <div

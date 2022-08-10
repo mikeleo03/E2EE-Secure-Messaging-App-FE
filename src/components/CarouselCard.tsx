@@ -61,7 +61,10 @@ const CarouselCard: React.FC<CarouselCardProps> = ({ topics }) => {
   };
 
   return (
-    <div className="bg-primaryBlue xs:w-[250px] sm:w-[500px] md:w-[600px] lg:w-[800px] xl:w-[1000px] content-center my-0 mx-auto">
+    <div
+      className="bg-primaryBlue xs:w-[250px] sm:w-[500px] md:w-[600px] lg:w-[800px] xl:w-[1000px] 
+    content-center my-0 mx-auto"
+    >
       <Slick {...slickSettings}>
         {topics?.map((topic, _) => (
           <Card

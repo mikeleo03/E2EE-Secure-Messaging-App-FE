@@ -17,7 +17,6 @@ const ReportModal: React.FC = () => {
   const [reportValue, setReportValue] = useState(0);
   const [otherValue, setOtherValue] = useState('');
   const [modalText, setModalText] = useState('Content of the modal');
-  console.log(socket);
 
   //   const handleOk = () => {
   //     return new Promise((resolve, reject) => {
