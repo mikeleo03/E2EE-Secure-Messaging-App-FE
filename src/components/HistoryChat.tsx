@@ -21,18 +21,18 @@ const HistoryChat: React.FC<HistoryChatProps> = ({ show, backCallback }) => {
         transition={{ type: 'keyframes' }}
       >
         <div className="bg-white rounded-b-2xl lg:rounded-none h-full w-full">
-          <div className="bg-secondaryOrange relative py-3 pr-5 pl-9 sm:pl-16 flex items-center gap-5 lg:h-[92px]">
-            <ProfilePicture className="w-10 xs:w-[67px]" />
-            <h3 className="font-alegreya text-body xs:text-subHeading m-0">
-              Nama Samaran
-            </h3>
-            <button className="absolute left-1 top-1" onClick={backCallback}>
+          <div className="bg-secondaryOrange relative py-3 px-4 flex items-center lg:h-[92px]">
+            <button className="mr-4" onClick={backCallback}>
               <FiChevronLeft
                 strokeWidth={3}
                 className="flex-shrink-0 w-6 sm:w-8"
                 size={32}
               />
             </button>
+            <ProfilePicture className="w-10 xs:w-[67px] mr-5" />
+            <h3 className="font-alegreya text-body xs:text-subHeading m-0">
+              Nama Samaran
+            </h3>
           </div>
           <div className="flex flex-col overflow-y-auto max-h-[calc(100%-95px)] py-4 px-3.5 gap-2">
             <BubbleChat />
