@@ -12,6 +12,7 @@ import Cookies from 'universal-cookie';
 import authServices from './services/auth-services';
 import { useDispatch } from 'react-redux';
 import { setIsAuthorized, setToken, setUserData } from './redux/actions/auth';
+import { UserData } from './interfaces/auth';
 
 export const routes: RouteProps[] = [
   {
@@ -65,7 +66,7 @@ const App: React.FC = () => {
     }
 
     try {
-      const res = await authServices.getMyProfile(token);
+      const res = (await authServices.getMyProfile(token)) as UserData;
       dispatch(setToken(token));
       dispatch(setIsAuthorized(true));
       dispatch(

@@ -1,5 +1,4 @@
 import services from '.';
-import { UserData } from '../interfaces/auth';
 
 const login = async ({
   username,
@@ -13,13 +12,13 @@ const login = async ({
 };
 
 const getMyProfile = async (token: string) => {
-  const res = (await services.get('/user', {
+  const res = await services.get('/user', {
     headers: {
       Authorization: `Bearer ${token}`,
     },
-  })) as UserData;
+  });
 
-  return res;
+  return res.data;
 };
 
 export default { login, getMyProfile };
