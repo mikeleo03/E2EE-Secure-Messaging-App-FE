@@ -9,7 +9,6 @@ import OnlineUsers from '../components/OnlineUsers';
 import OrangeButton from '../components/OrangeButton';
 import Topics from '../components/Topics';
 import TutorialModal from '../components/TutorialModal';
-import WhiteButton from '../components/WhiteButton';
 import config from '../config';
 import { TopicData } from '../interfaces';
 import { authSelector } from '../redux/selectors/auth';

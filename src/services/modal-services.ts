@@ -1,22 +1,26 @@
+import Cookies from 'universal-cookie';
 import services from '.';
 
 export const submitReport = async ({
   chat_id,
-  reporter_id,
-  reported_id,
+  issuer_id,
   reason,
 }: {
-  chat_id: string;
-  reporter_id: string;
-  reported_id: string;
+  chat_id?: string | null;
+  issuer_id?: string;
   reason: string;
 }) => {
-  const res = await services.post('/reports', {
-    chat_id,
-    reporter_id,
-    reported_id,
-    reason,
-  });
+  const cookie = new Cookies();
+  const cookies = cookie.getAll();
+  const res = await services.post(
+    '/reports',
+    { chat_id, issuer_id, reason },
+    {
+      headers: {
+        Authorization: `Bearer ${cookies.token}`,
+      },
+    }
+  );
   return res.data;
 };
 

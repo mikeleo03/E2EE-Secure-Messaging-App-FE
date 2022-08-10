@@ -6,7 +6,9 @@ import Matched from '../components/Matched';
 import MatchingUp from '../components/MatchingUp';
 import NoUserFound from '../components/NoUserFound';
 import { setTopic } from '../redux/actions/auth';
+import { setRoomId } from '../redux/actions/room';
 import { authSelector } from '../redux/selectors/auth';
+import { stores } from '../redux/stores';
 import socket from '../socket';
 
 const Matchmaking: React.FC = () => {
@@ -22,11 +24,13 @@ const Matchmaking: React.FC = () => {
   };
 
   useEffect(() => {
-    socket.on('matched', () => {
+    socket.on('matched', (roomId) => {
       setStatus(1);
       dispatch(setTopic(-1));
       navigate('/chat');
       clearTimeout(matchmakingTimeout);
+      dispatch(setRoomId(roomId));
+      console.log(stores.getState());
     });
 
     const matchmakingTimeout = setTimeout(() => {
