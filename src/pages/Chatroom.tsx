@@ -1,5 +1,6 @@
 /* eslint-disable max-len */
 import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { Navigate, useNavigate } from 'react-router-dom';
 import ChatContainer from '../components/ChatContainer';
@@ -9,17 +10,28 @@ import Heading from '../components/Heading';
 import Nametag from '../components/Nametag';
 import OrangeButton from '../components/OrangeButton';
 import ReportModal from '../components/ReportModal';
+import { setRoomId } from '../redux/actions/room';
 import { authSelector } from '../redux/selectors/auth';
+import { roomSelector } from '../redux/selectors/room';
 import socket from '../socket';
 import { trimString } from '../utils';
 
 const ChatRoom: React.FC = () => {
   const [dialogist, setDialogist] = useState('');
   const { userData } = useSelector(authSelector);
+  const { room_id } = useSelector(roomSelector);
   const [chatEnded, setChatEnded] = useState('');
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const clearRoomId = () => {
+    dispatch(setRoomId(null));
+  };
 
   useEffect(() => {
+    if (!room_id) {
+      navigate('/', { replace: true });
+    }
     socket.on('revealName', ({ username1, name1, username2, name2 }) => {
       if (username1 === userData?.username) {
         setDialogist(name2);
@@ -31,7 +43,10 @@ const ChatRoom: React.FC = () => {
 
     socket.on('endChat', (msg) => {
       setChatEnded(msg);
+      clearRoomId();
     });
+
+    return () => clearRoomId();
   }, []);
 
   const handleEndChat = () => {
