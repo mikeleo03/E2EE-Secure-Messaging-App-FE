@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import ReduxDemo from './pages/ReduxDemo';
 import './main.css';
 import { Route, Routes } from 'react-router-dom';
@@ -8,6 +8,10 @@ import History from './pages/History';
 import LoginPage from './pages/LoginPage';
 import RouteGuard, { RouteProps } from './utils/RouteGuard';
 import Matchmaking from './pages/Matchmaking';
+import Cookies from 'universal-cookie';
+import authServices from './services/auth-services';
+import { useDispatch } from 'react-redux';
+import { setIsAuthorized, setToken, setUserData } from './redux/actions/auth';
 
 export const routes: RouteProps[] = [
   {
@@ -43,6 +47,49 @@ export const routes: RouteProps[] = [
 ];
 
 const App: React.FC = () => {
+  const dispatch = useDispatch();
+  const [loading, setLoading] = useState(true);
+
+  const initState = async () => {
+    setLoading(true);
+
+    const cookie = new Cookies();
+    const cookies = cookie.getAll();
+
+    let token = '';
+
+    if (cookies) {
+      if (cookies.token) {
+        token = cookies.token;
+      }
+    }
+
+    try {
+      const res = await authServices.getMyProfile(token);
+      dispatch(setToken(token));
+      dispatch(setIsAuthorized(true));
+      dispatch(
+        setUserData({
+          username: res.username,
+          name: res.name,
+          sex: res.sex,
+          campus: res.campus,
+          faculty: res.faculty,
+        })
+      );
+    } catch (error) {
+      token = '';
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    initState();
+  }, []);
+
+  if (loading) return <p>Loading...</p>;
+
   return (
     <Routes>
       {routes.map((route) => (

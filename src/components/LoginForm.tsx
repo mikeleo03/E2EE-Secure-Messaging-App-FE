@@ -7,6 +7,8 @@ import { useDispatch } from 'react-redux';
 import { setIsAuthorized, setToken, setUserData } from '../redux/actions/auth';
 import { LoginStatusResponse } from '../interfaces/auth';
 import { stores } from '../redux/stores';
+import Cookies from 'universal-cookie';
+import config from '../config';
 
 const LoginForm: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -30,16 +32,22 @@ const LoginForm: React.FC = () => {
       dispatch(
         setUserData({
           username: res.user.username,
-          provider: res.user.provider,
-          confirmed: res.user.confirmed,
-          blocked: res.user.blocked,
           name: res.user.name,
           sex: res.user.sex,
           campus: res.user.campus,
           faculty: res.user.faculty,
-          email: res.user.email,
         })
       );
+
+      // Set cookies
+      const cookie = new Cookies();
+      const maxAge = 30 * 24 * 3600;
+      cookie.set('token', res.jwt, {
+        path: '/',
+        maxAge,
+        domain: config.DOMAIN_URL,
+      });
+
       setVisible(true);
     } catch (error) {
       // TODO: Handle warning invalid usenrame/pasword
