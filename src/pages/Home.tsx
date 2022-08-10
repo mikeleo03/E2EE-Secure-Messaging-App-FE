@@ -8,6 +8,7 @@ import NewTopicModal from '../components/NewTopicModal';
 import OnlineUsers from '../components/OnlineUsers';
 import OrangeButton from '../components/OrangeButton';
 import Topics from '../components/Topics';
+import TutorialModal from '../components/TutorialModal';
 import WhiteButton from '../components/WhiteButton';
 import config from '../config';
 import { TopicData } from '../interfaces';
@@ -63,6 +64,7 @@ const Home: React.FC = () => {
 
   return (
     <>
+      <TutorialModal />
       <NewTopicModal />
       <div className="bg-white w-[100vw] h-[100vh] relative py-8">
         <div className="flex flex-col items-center text-center">

@@ -14,9 +14,9 @@ const Identity: React.FC<IdentityProps> = ({ name, nim, className }) => {
       className={`flex flex-col w-[310px] justify-between items-center pr-8 pl-5 py-3.5 ${className}`}
     >
       <ProfilePicture />
-      <div className={`font-magilio text-heading`}>elcom!</div>
-      <div className={`font-alegreya text-subHeading`}>{name}</div>
-      <div className={`font-alegreyasans text-subHeading`}>{nim}</div>
+      <div className="font-magilio text-heading">elcom!</div>
+      <div className="font-alegreya text-subHeading">{name}</div>
+      <div className="font-alegreyasans text-subHeading">{nim}</div>
     </div>
   );
 };
