@@ -1,4 +1,4 @@
-import { Button, Form, Input, Modal } from 'antd';
+import { Button, Form, Input, message, Modal } from 'antd';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import React, { useState } from 'react';
 import PrivacyPolicy from './PrivacyPolicy';
@@ -9,6 +9,7 @@ import { LoginStatusResponse } from '../interfaces/auth';
 import { stores } from '../redux/stores';
 import Cookies from 'universal-cookie';
 import config from '../config';
+import { AxiosError } from 'axios';
 
 const LoginForm: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -50,8 +51,15 @@ const LoginForm: React.FC = () => {
 
       setVisible(true);
     } catch (error) {
-      // TODO: Handle warning invalid usenrame/pasword
-      console.error(error);
+      const err = error as AxiosError;
+      console.log(err);
+      if (err.response?.status === 403) {
+        message.error('You are Banned!');
+      } else if (err.response?.status === 400) {
+        message.error('Wrong username/password');
+      } else {
+        message.error('Unknown error! Please try again later');
+      }
     } finally {
       setIsLoading(false);
       console.log(stores.getState());

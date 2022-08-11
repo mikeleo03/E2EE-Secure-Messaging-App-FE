@@ -10,7 +10,7 @@ import OrangeButton from '../components/OrangeButton';
 import Topics from '../components/Topics';
 import TutorialModal from '../components/TutorialModal';
 import config from '../config';
-import { topics } from '../utils/TopicData';
+import { topics } from '../utils/topicData';
 import { authSelector } from '../redux/selectors/auth';
 import socket from '../socket';
 import { stores } from '../redux/stores';
@@ -18,6 +18,7 @@ import { stores } from '../redux/stores';
 const Home: React.FC = () => {
   const navigate = useNavigate();
   const { userData, topic } = useSelector(authSelector);
+
   const handleRedirectFindMatch: React.MouseEventHandler<
     HTMLButtonElement
   > = () => {
@@ -57,7 +58,8 @@ const Home: React.FC = () => {
     });
 
     socket.on('quotaExceeded', () => {
-      message.error('Your daily matchmaking quota has reached it\'s limit');
+      // eslint-disable-next-line quotes
+      message.error("Your daily matchmaking quota has reached it's limit");
     });
 
     socket.emit('getOnlineUsers');

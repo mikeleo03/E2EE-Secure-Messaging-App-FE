@@ -1,5 +1,4 @@
-import React from 'react';
-
+import React, { useEffect, useState } from 'react';
 import Slick, { Settings } from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -8,10 +7,9 @@ import { useSelector } from 'react-redux';
 import { authSelector } from '../redux/selectors/auth';
 import { useDispatch } from 'react-redux';
 import { setTopic } from '../redux/actions/auth';
-import { TopicData } from '../interfaces';
-import { setNewTopicModal } from '../redux/actions/modal';
-import { stores } from '../redux/stores';
-import { BsPlus } from 'react-icons/bs';
+import { TopicData } from '../interfaces/topics';
+import { getAllTopics } from '../services/topic-services';
+import { TopicResponse } from '../interfaces/topics';
 
 const slickSettings: Settings = {
   lazyLoad: 'ondemand',
@@ -52,13 +50,25 @@ interface CarouselCardProps {
 
 const CarouselCard: React.FC<CarouselCardProps> = ({ topics }) => {
   const { topic: selectedTopic } = useSelector(authSelector);
+  const [topicData, setTopicData] = useState<TopicResponse[]>([]);
+  const [hotTopicId, setHotTopicId] = useState<number[]>([]);
   const dispatch = useDispatch();
 
-  const openNewTopicModal = (topic_id: number) => {
-    dispatch(setTopic(topic_id));
-    dispatch(setNewTopicModal(true));
-    console.log(stores.getState());
-  };
+  useEffect(() => {
+    const getTopics = async () => {
+      try {
+        const res = (await getAllTopics()) as TopicResponse[];
+        setTopicData(res);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getTopics();
+  }, []);
+
+  const hot = topicData
+    .filter((topic) => topic.hot_status === true)
+    .map((topic) => topic.topic_id);
 
   return (
     <div
@@ -70,7 +80,7 @@ const CarouselCard: React.FC<CarouselCardProps> = ({ topics }) => {
           <Card
             key={topic.topic_id}
             text={topic.topic_name}
-            hot={topic.hot_status}
+            hot={hot.includes(topic.topic_id)}
             src={topic.src}
             dropShadow={topic.drop_shadow}
             selected={selectedTopic === topic.topic_id}

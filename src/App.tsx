@@ -13,6 +13,7 @@ import authServices from './services/auth-services';
 import { useDispatch } from 'react-redux';
 import { setIsAuthorized, setToken, setUserData } from './redux/actions/auth';
 import { UserData } from './interfaces/auth';
+import Loading from './components/Loading';
 
 export const routes: RouteProps[] = [
   {
@@ -89,7 +90,7 @@ const App: React.FC = () => {
     initState();
   }, []);
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <Loading />;
 
   return (
     <Routes>

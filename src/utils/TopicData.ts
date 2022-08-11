@@ -1,4 +1,4 @@
-import { TopicData } from '../interfaces';
+import { TopicData } from '../interfaces/topics';
 import Bandung from '../assets/topics/bandung.jpg';
 import Film from '../assets/topics/film.jpg';
 import ITB from '../assets/topics/itb.jpg';
