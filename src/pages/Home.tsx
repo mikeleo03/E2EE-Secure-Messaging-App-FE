@@ -1,5 +1,5 @@
 import { message } from 'antd';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'universal-cookie';
@@ -42,11 +42,17 @@ const Home: React.FC = () => {
   };
 
   const { token } = useSelector(authSelector);
+  const [onlineUsers, setOnlineUsers] = useState(0);
 
   useEffect(() => {
-    // TODO: Set socket auth
     socket.auth = { token };
     socket.connect();
+
+    socket.on('onlineUsers', (value) => {
+      setOnlineUsers(value);
+    });
+
+    socket.emit('getOnlineUsers');
   }, []);
 
   return (
@@ -65,7 +71,7 @@ const Home: React.FC = () => {
           >
             See Chat History
           </OrangeButton>
-          <OnlineUsers numUsers={1500} />
+          <OnlineUsers numUsers={onlineUsers} />
           <Topics topics={topics} />
           <OrangeButton onClick={handleRedirectFindMatch}>
             Find Match
