@@ -16,7 +16,7 @@ const Nametag: React.FC<NameTagProps> = ({ name, nim, className }) => {
       <ProfilePicture className="w-[33px] md:w-[71px]" />
       <div className="w-full text-center">
         <div className="text-white flex flex-col justify-center items-center font-alegreya font-bold text-xs md:text-subHeading mb-[5px]">
-          {name}
+          {name?.substring(0, 15) + '...'}
         </div>
         <div className="text-white flex flex-col justify-center items-center font-alegreyasans text-xs md:text-body font-light">
           {nim}

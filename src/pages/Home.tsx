@@ -13,6 +13,7 @@ import config from '../config';
 import { topics } from '../utils/TopicData';
 import { authSelector } from '../redux/selectors/auth';
 import socket from '../socket';
+import { stores } from '../redux/stores';
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
@@ -48,6 +49,8 @@ const Home: React.FC = () => {
     socket.auth = { token };
     socket.connect();
   }, []);
+
+  console.log(stores.getState());
 
   return (
     <>

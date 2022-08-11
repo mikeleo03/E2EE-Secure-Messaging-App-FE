@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { AiOutlineCheck } from 'react-icons/ai';
 interface CardProps {
   text?: string;
   src?: string;
@@ -26,7 +26,7 @@ const Card: React.FC<CardProps> = ({
         src={src}
         alt={text}
         style={{
-          filter: `drop-shadow(0px 4px 0px ${dropShadow})`,
+          filter: `drop-shadow(0px 8px 0px ${dropShadow})`,
         }}
         className="w-[226px] text-white rounded-lg mb-2 object-contain"
       >
@@ -39,8 +39,11 @@ const Card: React.FC<CardProps> = ({
       <div
         className={`${
           selected ? 'block' : 'hidden'
-        } absolute h-[107px] w-full bg-primaryGrey z-10 top-0 left-0 opacity-70 rounded-lg`}
-      />
+        } absolute h-[107px] w-full bg-primaryGrey z-10 top-0 left-0 opacity-70 rounded-lg text-white text-[80px] 
+        flex items-center justify-center`}
+      >
+        <AiOutlineCheck />
+      </div>
       {hot ? (
         <div
           className="bg-secondaryRed text-white h-[40px] w-[40px] rounded-full flex items-center justify-center
