@@ -46,7 +46,6 @@ const slickSettings: Settings = {
   ],
 };
 
-const topics2 = [{ topic_id: 1, src: Musik }];
 interface CarouselCardProps {
   topics?: TopicData[];
 }
