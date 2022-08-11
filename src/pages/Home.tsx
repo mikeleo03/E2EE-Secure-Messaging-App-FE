@@ -10,21 +10,9 @@ import OrangeButton from '../components/OrangeButton';
 import Topics from '../components/Topics';
 import TutorialModal from '../components/TutorialModal';
 import config from '../config';
-import { TopicData } from '../interfaces';
+import { topics } from '../utils/TopicData';
 import { authSelector } from '../redux/selectors/auth';
 import socket from '../socket';
-
-const topics: TopicData[] = [
-  { topic_id: 1, topic_name: 'Anjay1', hot_status: true },
-  { topic_id: 2, topic_name: 'Anjay2', hot_status: false },
-  { topic_id: 3, topic_name: 'Anjay3', hot_status: false },
-  { topic_id: 4, topic_name: 'Anjay4', hot_status: false },
-  { topic_id: 5, topic_name: 'Anjay5', hot_status: false },
-  { topic_id: 6, topic_name: 'Anjay6', hot_status: false },
-  { topic_id: 7, topic_name: 'Anjay7', hot_status: false },
-  { topic_id: 8, topic_name: 'Anjay8', hot_status: false },
-  { topic_id: 9, topic_name: 'Anjay9', hot_status: false },
-];
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
