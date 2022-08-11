@@ -1,6 +1,6 @@
 import { motion, useAnimationFrame } from 'framer-motion';
 import React, { useState } from 'react';
-import image from '../resources/image.png';
+import image from '../resources/matching-up.png';
 
 const Matched: React.FC = () => {
   const [loadingFrame, setLoadingFrame] = useState(0);

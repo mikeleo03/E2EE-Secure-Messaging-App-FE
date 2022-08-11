@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import React from 'react';
-import image from '../resources/image.png';
+import image from '../resources/matched.png';
 
 const Matched: React.FC = () => {
   return (
