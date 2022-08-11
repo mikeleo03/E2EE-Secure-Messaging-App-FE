@@ -22,7 +22,6 @@ const Home: React.FC = () => {
   > = () => {
     if (topic != -1 && topic != topics.length + 1) {
       socket.emit('matchmaking', topic.toString());
-      navigate('/matchmaking', { replace: true });
     } else {
       message.error('Select a topic!');
     }
@@ -50,6 +49,14 @@ const Home: React.FC = () => {
 
     socket.on('onlineUsers', (value) => {
       setOnlineUsers(value);
+    });
+
+    socket.on('continueMatch', () => {
+      navigate('/matchmaking', { replace: true });
+    });
+
+    socket.on('quotaExceeded', () => {
+      message.error('Your daily matchmaking quota has reached it\'s limit');
     });
 
     socket.emit('getOnlineUsers');
