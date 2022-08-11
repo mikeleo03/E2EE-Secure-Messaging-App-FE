@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import Slick, { Settings } from 'react-slick';
 import 'slick-carousel/slick/slick.css';
@@ -71,17 +71,12 @@ const CarouselCard: React.FC<CarouselCardProps> = ({ topics }) => {
             key={topic.topic_id}
             text={topic.topic_name}
             hot={topic.hot_status}
+            src={topic.src}
+            dropShadow={topic.drop_shadow}
             selected={selectedTopic === topic.topic_id}
             onClick={() => dispatch(setTopic(topic.topic_id))}
           />
         ))}
-        <Card
-          key={topics ? topics.length + 1 : 0}
-          text="New Topic"
-          selected={selectedTopic === (topics ? topics.length + 1 : 0)}
-          onClick={() => openNewTopicModal(topics ? topics.length + 1 : 0)}
-          Icon={<BsPlus />}
-        />
       </Slick>
     </div>
   );
