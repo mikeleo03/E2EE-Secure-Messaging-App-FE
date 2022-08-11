@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import OrangeButton from '../components/OrangeButton';
-import image from '../resources/image.png';
+import image from '../resources/no-user-found.png';
 
 const Matched: React.FC = () => {
   const navigate = useNavigate();
