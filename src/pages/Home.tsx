@@ -1,5 +1,5 @@
 import { message } from 'antd';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'universal-cookie';
@@ -23,7 +23,6 @@ const Home: React.FC = () => {
   > = () => {
     if (topic != -1 && topic != topics.length + 1) {
       socket.emit('matchmaking', topic.toString());
-      navigate('/matchmaking', { replace: true });
     } else {
       message.error('Select a topic!');
     }
@@ -43,11 +42,25 @@ const Home: React.FC = () => {
   };
 
   const { token } = useSelector(authSelector);
+  const [onlineUsers, setOnlineUsers] = useState(0);
 
   useEffect(() => {
-    // TODO: Set socket auth
     socket.auth = { token };
     socket.connect();
+
+    socket.on('onlineUsers', (value) => {
+      setOnlineUsers(value);
+    });
+
+    socket.on('continueMatch', () => {
+      navigate('/matchmaking', { replace: true });
+    });
+
+    socket.on('quotaExceeded', () => {
+      message.error('Your daily matchmaking quota has reached it\'s limit');
+    });
+
+    socket.emit('getOnlineUsers');
   }, []);
 
   console.log(stores.getState());
@@ -68,7 +81,7 @@ const Home: React.FC = () => {
           >
             See Chat History
           </OrangeButton>
-          <OnlineUsers numUsers={1500} />
+          <OnlineUsers numUsers={onlineUsers} />
           <Topics topics={topics} />
           <OrangeButton onClick={handleRedirectFindMatch}>
             Find Match
