@@ -43,27 +43,42 @@ const Home: React.FC = () => {
 
   const { token } = useSelector(authSelector);
   const [onlineUsers, setOnlineUsers] = useState(0);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     socket.auth = { token };
     socket.connect();
 
-    socket.on('onlineUsers', (value) => {
-      setOnlineUsers(value);
-    });
+    // socket.on('onlineUsers', (value) => {
+    //   setOnlineUsers(value);
+    // });
 
     socket.on('continueMatch', () => {
       navigate('/matchmaking', { replace: true });
     });
 
     socket.on('quotaExceeded', () => {
-      message.error('Your daily matchmaking quota has reached it\'s limit');
+      // eslint-disable-next-line quotes
+      message.error("Your daily matchmaking quota has reached it's limit");
+    });
+
+    socket.on('finishLoading', () => {
+      setLoading(false);
+    });
+
+    socket.on('connect_error', (err) => {
+      // TODO: Handle and redirect to error page
+      console.error(err);
+      alert('Cannot connect');
     });
 
     socket.emit('getOnlineUsers');
   }, []);
 
   console.log(stores.getState());
+
+  // TODO: Set using loading page component
+  if (loading) return <p>Loading...</p>;
 
   return (
     <>
