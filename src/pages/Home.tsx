@@ -10,7 +10,7 @@ import OrangeButton from '../components/OrangeButton';
 import Topics from '../components/Topics';
 import TutorialModal from '../components/TutorialModal';
 import config from '../config';
-import { topics } from '../utils/topicdata';
+import topicData from '../utils/topicdata';
 import { authSelector } from '../redux/selectors/auth';
 import socket from '../socket';
 import { stores } from '../redux/stores';
@@ -18,7 +18,6 @@ import { stores } from '../redux/stores';
 const Home: React.FC = () => {
   const navigate = useNavigate();
   const { userData, topic } = useSelector(authSelector);
-  const topicData = topics;
 
   const handleRedirectFindMatch: React.MouseEventHandler<
     HTMLButtonElement

@@ -12,7 +12,7 @@ import PengenCurhat from '../assets/topics/pengencurhat.jpg';
 import Travelling from '../assets/topics/travelling.jpg';
 import Random from '../assets/topics/random.jpg';
 
-export const topics: TopicData[] = [
+const topicData: TopicData[] = [
   {
     topic_id: 1,
     topic_name: 'Bandung',
@@ -98,3 +98,5 @@ export const topics: TopicData[] = [
     drop_shadow: '#E3AE5C',
   },
 ];
+
+export default topicData;
