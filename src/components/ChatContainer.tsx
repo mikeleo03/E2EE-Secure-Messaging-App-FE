@@ -38,8 +38,8 @@ const ChatContainer: React.FC<ChatContainerProps> = ({
     socket.on('message', ({ content, from }) => {
       console.log(chatData);
       setChatData((prevData) => [
-        ...prevData,
         { message: content, isFromMe: socket.id === from },
+        ...prevData,
       ]);
     });
   }, []);
@@ -63,7 +63,7 @@ const ChatContainer: React.FC<ChatContainerProps> = ({
       <div className="h-[15%] lg:hidden">
         <Dialogist dialogist={dialogist} handleReveal={handleReveal} />
       </div>
-      <div className="xs:h-[55vh] lg:h-[68vh] w-[100%] lg:rounded-t-[15px] flex flex-col max-w-[100%] px-2 pt-2 overflow-y-scroll overflow-x-hidden">
+      <div className="xs:h-[55vh] lg:h-[68vh] w-[100%] lg:rounded-t-[15px] flex flex-col-reverse max-w-[100%] px-2 pt-2 overflow-y-scroll overflow-x-hidden">
         {chatData.map((chat, idx) => (
           <ChatBubble key={idx} sent={chat.isFromMe}>
             {chat.message}

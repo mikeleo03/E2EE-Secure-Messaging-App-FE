@@ -24,13 +24,15 @@ const Matchmaking: React.FC = () => {
   };
 
   useEffect(() => {
+    if (topic === -1) {
+      navigate('/', { replace: true });
+    }
     socket.on('matched', (roomId) => {
       setStatus(1);
       dispatch(setTopic(-1));
       navigate('/chat');
       clearTimeout(matchmakingTimeout);
       dispatch(setRoomId(roomId));
-      console.log(stores.getState());
     });
 
     const matchmakingTimeout = setTimeout(() => {
