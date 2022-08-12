@@ -10,7 +10,7 @@ import OrangeButton from '../components/OrangeButton';
 import Topics from '../components/Topics';
 import TutorialModal from '../components/TutorialModal';
 import config from '../config';
-import { topics } from '../utils/TopicData';
+import topicData from '../utils/topics';
 import { authSelector } from '../redux/selectors/auth';
 import socket from '../socket';
 import { stores } from '../redux/stores';
@@ -18,10 +18,11 @@ import { stores } from '../redux/stores';
 const Home: React.FC = () => {
   const navigate = useNavigate();
   const { userData, topic } = useSelector(authSelector);
+
   const handleRedirectFindMatch: React.MouseEventHandler<
     HTMLButtonElement
   > = () => {
-    if (topic != -1 && topic != topics.length + 1) {
+    if (topic != -1 && topic != topicData.length + 1) {
       socket.emit('matchmaking', topic.toString());
     } else {
       message.error('Select a topic!');
@@ -97,7 +98,7 @@ const Home: React.FC = () => {
             See Chat History
           </OrangeButton>
           <OnlineUsers numUsers={onlineUsers} />
-          <Topics topics={topics} />
+          <Topics topics={topicData} />
           <OrangeButton onClick={handleRedirectFindMatch}>
             Find Match
           </OrangeButton>

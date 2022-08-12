@@ -5,3 +5,9 @@ export interface TopicData {
   src: string;
   drop_shadow: string;
 }
+
+export interface TopicResponse {
+  topic_id: number;
+  topic_name: string;
+  hot_status: boolean;
+}

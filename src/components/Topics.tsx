@@ -1,6 +1,6 @@
 /* eslint-disable quotes */
 import React from 'react';
-import { TopicData } from '../interfaces';
+import { TopicData } from '../interfaces/topics';
 import CarouselCard from './CarouselCard';
 import { IoInformation } from 'react-icons/io5';
 import { useDispatch } from 'react-redux';
