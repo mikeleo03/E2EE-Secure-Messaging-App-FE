@@ -15,9 +15,14 @@ import { authSelector } from '../redux/selectors/auth';
 import socket from '../socket';
 import { stores } from '../redux/stores';
 import Loading from '../components/Loading';
+import { commonSelector } from '../redux/selectors/common';
+import { useDispatch } from 'react-redux';
+import { setIsLoading } from '../redux/actions/common';
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { is_loading } = useSelector(commonSelector);
   const { userData, topic } = useSelector(authSelector);
 
   const handleRedirectFindMatch: React.MouseEventHandler<
@@ -45,7 +50,6 @@ const Home: React.FC = () => {
 
   const { token } = useSelector(authSelector);
   const [onlineUsers, setOnlineUsers] = useState(0);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     socket.auth = { token };
@@ -65,7 +69,7 @@ const Home: React.FC = () => {
     });
 
     socket.on('finishLoading', () => {
-      setLoading(false);
+      dispatch(setIsLoading(false));
     });
 
     socket.on('connect_error', (err) => {
@@ -79,14 +83,11 @@ const Home: React.FC = () => {
 
   console.log(stores.getState());
 
-  // TODO: Set using loading page component
-  // if (loading) return <Loading />;
-
   return (
     <>
       <TutorialModal />
       <NewTopicModal />
-      {loading ? (
+      {is_loading ? (
         <Loading />
       ) : (
         <div className="bg-white w-[100vw] h-[100vh] relative py-8">
