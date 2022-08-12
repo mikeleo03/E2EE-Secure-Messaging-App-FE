@@ -10,7 +10,7 @@ import OrangeButton from '../components/OrangeButton';
 import Topics from '../components/Topics';
 import TutorialModal from '../components/TutorialModal';
 import config from '../config';
-import topicData from '../utils/topicdata';
+import topicData from '../utils/topics';
 import { authSelector } from '../redux/selectors/auth';
 import socket from '../socket';
 import { stores } from '../redux/stores';
