@@ -14,6 +14,7 @@ import { useDispatch } from 'react-redux';
 import { setIsAuthorized, setToken, setUserData } from './redux/actions/auth';
 import { UserData } from './interfaces/auth';
 import Loading from './components/Loading';
+import MultipleLoginError from './pages/MultipleLoginError';
 
 export const routes: RouteProps[] = [
   {
@@ -44,6 +45,11 @@ export const routes: RouteProps[] = [
   {
     Component: Matchmaking,
     path: '/matchmaking',
+    afterLoggedIn: true,
+  },
+  {
+    Component: MultipleLoginError,
+    path: '/multiple-login-error',
     afterLoggedIn: true,
   },
 ];

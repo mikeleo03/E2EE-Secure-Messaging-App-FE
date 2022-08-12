@@ -14,6 +14,7 @@ import topicData from '../utils/topics';
 import { authSelector } from '../redux/selectors/auth';
 import socket from '../socket';
 import { stores } from '../redux/stores';
+import Loading from '../components/Loading';
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
@@ -70,7 +71,7 @@ const Home: React.FC = () => {
     socket.on('connect_error', (err) => {
       // TODO: Handle and redirect to error page
       console.error(err);
-      alert('Cannot connect');
+      navigate('/multiple-login-error', { replace: true });
     });
 
     socket.emit('getOnlineUsers');
@@ -79,31 +80,35 @@ const Home: React.FC = () => {
   console.log(stores.getState());
 
   // TODO: Set using loading page component
-  if (loading) return <p>Loading...</p>;
+  // if (loading) return <Loading />;
 
   return (
     <>
       <TutorialModal />
       <NewTopicModal />
-      <div className="bg-white w-[100vw] h-[100vh] relative py-8">
-        <div className="flex flex-col items-center text-center">
-          <Identity name={userData?.name} nim={userData?.username}></Identity>
-          <OrangeButton className="mt-3 mb-6" onClick={handleLogout}>
-            Logout
-          </OrangeButton>
-          <OrangeButton
-            className="mt-3 mb-6"
-            onClick={handleRedirectSeeHistory}
-          >
-            See Chat History
-          </OrangeButton>
-          <OnlineUsers numUsers={onlineUsers} />
-          <Topics topics={topicData} />
-          <OrangeButton onClick={handleRedirectFindMatch}>
-            Find Match
-          </OrangeButton>
+      {loading ? (
+        <Loading />
+      ) : (
+        <div className="bg-white w-[100vw] h-[100vh] relative py-8">
+          <div className="flex flex-col items-center text-center">
+            <Identity name={userData?.name} nim={userData?.username}></Identity>
+            <OrangeButton className="mt-3 mb-6" onClick={handleLogout}>
+              Logout
+            </OrangeButton>
+            <OrangeButton
+              className="mt-3 mb-6"
+              onClick={handleRedirectSeeHistory}
+            >
+              See Chat History
+            </OrangeButton>
+            <OnlineUsers numUsers={onlineUsers} />
+            <Topics topics={topicData} />
+            <OrangeButton onClick={handleRedirectFindMatch}>
+              Find Match
+            </OrangeButton>
+          </div>
         </div>
-      </div>
+      )}
     </>
   );
 };
