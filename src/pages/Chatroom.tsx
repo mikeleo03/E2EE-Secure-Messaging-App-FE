@@ -65,7 +65,7 @@ const ChatRoom: React.FC = () => {
         <ChatEnded msg={chatEnded} />
       ) : (
         <>
-          <div className="bg-primaryBlue w-[100vw] xs:h-[100vh] sm:h-[100vh] xs:px-10 sm:px-32 md:px-48 lg:px-20 xl:px-28 xxl:px-36 3xl:px-60 overflow-hidden">
+          <div className="bg-primaryBlue w-[100vw] xs:h-[100vh] sm:h-[100vh] xs:px-10 sm:px-32 md:px-48 lg:px-20 xl:px-28 xxl:px-36 3xl:px-60 overflow-x-hidden">
             <div className="grid grid-flow-col justify-items-stretch grid-cols-8 items-center xs:py-4 lg:pt-10 lg:pb-4">
               <Heading className="justify-self-center col-span-6 xs:hidden lg:block">
                 Chat Room

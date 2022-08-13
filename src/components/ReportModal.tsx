@@ -114,7 +114,8 @@ const ReportModal: React.FC = () => {
             ]}
           >
             <Input.TextArea
-              placeholder="Please explain (For Other option)"
+              placeholder="Please explain (For other option)"
+              disabled={reportValue !== 'Other'}
               value={otherValue}
               onChange={handleOtherChange}
               maxLength={200}
