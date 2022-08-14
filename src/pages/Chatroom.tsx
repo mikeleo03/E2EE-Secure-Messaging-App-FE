@@ -80,7 +80,7 @@ const ChatRoom: React.FC = () => {
               <div className="flex flex-col items-center justify-around xs:hidden lg:flex">
                 <Dialogist dialogist={dialogist} handleReveal={handleReveal} />
                 <div className="mt-6">
-                  <OrangeButton>End Chat</OrangeButton>
+                  <OrangeButton onClick={handleEndChat}>End Chat</OrangeButton>
                 </div>
               </div>
               <ChatContainer
