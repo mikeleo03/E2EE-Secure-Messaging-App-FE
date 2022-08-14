@@ -1,12 +1,16 @@
-import { motion, useAnimationFrame } from 'framer-motion';
-import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+import React, { useEffect, useState } from 'react';
 import image from '../resources/matching-up.png';
 
 const Matched: React.FC = () => {
   const [loadingFrame, setLoadingFrame] = useState(0);
-  useAnimationFrame((t) => {
-    setLoadingFrame(Math.floor(t / 500) % 4);
-  });
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setLoadingFrame((loadingFrame) => (loadingFrame + 1) % 4);
+    }, 300);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div className="bg-white flex flex-col items-center justify-center h-screen">
       <motion.img
