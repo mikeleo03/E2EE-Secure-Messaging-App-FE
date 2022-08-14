@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import React from 'react';
 import ProfilePicture from './ProfilePicture';
 
@@ -16,9 +17,12 @@ const HistoryNametag: React.FC<HistoryNametagProps> = ({
   onClick,
 }) => {
   return (
-    <button
+    <motion.button
       className="p-1.5 sm:p-2.5 bg-secondaryOrange rounded-2xl flex items-center"
       onClick={onClick}
+      initial={{ opacity: 0, scale: 0 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 0 }}
     >
       <div className="bg-white flex py-3 px-[22px] rounded-xl flex-1 items-center">
         <div className="flex-shrink-0">
@@ -47,7 +51,7 @@ const HistoryNametag: React.FC<HistoryNametagProps> = ({
           })}
         </p>
       </div>
-    </button>
+    </motion.button>
   );
 };
 

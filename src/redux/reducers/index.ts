@@ -1,14 +1,16 @@
 import { combineReducers } from 'redux';
-import modal from './modal';
 import auth from './auth';
-import room from './room';
 import common from './common';
+import history from './history';
+import modal from './modal';
+import room from './room';
 
 export const reducers = combineReducers({
   modal,
   auth,
   room,
   common,
+  history,
 });
 
 export type AppStateType = ReturnType<typeof reducers>;

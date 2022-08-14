@@ -1,11 +1,14 @@
 import React from 'react';
 import { FiChevronLeft } from 'react-icons/fi';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { authSelector } from '../redux/selectors/auth';
 import Heading from './Heading';
 import Nametag from './Nametag';
 
 const HistoryHeading: React.FC = () => {
   const navigate = useNavigate();
+  const { userData } = useSelector(authSelector);
   return (
     <div className="px-6 py-4 lg:pt-5 lg:pb-12">
       <button
@@ -26,8 +29,8 @@ const HistoryHeading: React.FC = () => {
           History
         </Heading>
         <Nametag
-          name="Namanya siapa"
-          nim="123456789"
+          name={userData?.name}
+          nim={userData?.username}
           className="justify-self-end row-start-1 lg:col-start-3"
         />
       </div>
