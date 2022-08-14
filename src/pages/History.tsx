@@ -1,11 +1,43 @@
-import React, { useState } from 'react';
+import { AnimatePresence } from 'framer-motion';
+import React, { useEffect, useMemo, useState } from 'react';
 import { IoIosSearch } from 'react-icons/io';
-import HistoryChat from '../components/HistoryChat';
+import { useSelector } from 'react-redux';
+import HistoryChat, { HistoryData } from '../components/HistoryChat';
 import HistoryHeading from '../components/HistoryHeading';
 import HistoryNametag from '../components/HistoryNametag';
+import { authSelector } from '../redux/selectors/auth';
+import { getAllHistories } from '../services/history-services';
 
 const History: React.FC = () => {
-  const [isHistorySelected, setIsHistorySelected] = useState(false);
+  const [selectedHistory, setSelectedHistory] = useState<HistoryData | null>(
+    null
+  );
+  const { userData } = useSelector(authSelector);
+  const [histories, setHistories] = useState<Array<HistoryData>>([]);
+  const [search, setSearch] = useState('');
+  const filteredHistories = useMemo(
+    () =>
+      histories.filter(
+        (h) =>
+          h.topic_name.toLowerCase().includes(search) ||
+          h.message.toLowerCase().includes(search)
+      ),
+    [histories, search]
+  );
+
+  useEffect(() => {
+    async function fetchHistories() {
+      if (userData?.username) {
+        try {
+          const histories = await getAllHistories(userData.username);
+          setHistories(histories);
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    }
+    fetchHistories();
+  }, [userData?.username]);
 
   return (
     <div className="h-screen max-h-screen overflow-hidden">
@@ -17,6 +49,8 @@ const History: React.FC = () => {
               type="text"
               className="bg-secondaryGrey rounded-2xl h-[26px] md:h-11 
               flex-grow px-4 focus:outline-none text-body font-alegreyasans"
+              placeholder="Search"
+              onChange={(e) => setSearch(e.target.value.toLowerCase())}
             />
             <IoIosSearch className="flex-shrink-0 w-[26px] md:w-10" size={40} />
           </div>
@@ -25,25 +59,25 @@ const History: React.FC = () => {
               className="overflow-y-auto max-h-[calc(100vh-234px)] md:max-h-[calc(100vh-302px)] 
             h-screen px-4 md:pr-8 md:pl-11 py-8 flex flex-col gap-5"
             >
-              {Array(10)
-                .fill(0)
-                .map((_, i) => (
+              <AnimatePresence exitBeforeEnter>
+                {filteredHistories.map((history) => (
                   <HistoryNametag
-                    key={i}
-                    name="Nama Orang 1"
+                    key={history.chat_id}
+                    name={history.topic_name}
                     lastChat={{
-                      message: 'Ini chat terakhirnya',
-                      time: new Date('5 July 2022 22:00+07:00'),
+                      message: history.message,
+                      time: new Date(history.timestamp),
                     }}
-                    onClick={() => setIsHistorySelected(true)}
+                    onClick={() => setSelectedHistory(history)}
                   />
                 ))}
+              </AnimatePresence>
             </div>
           </div>
         </div>
         <HistoryChat
-          show={isHistorySelected}
-          backCallback={() => setIsHistorySelected(false)}
+          history={selectedHistory}
+          backCallback={() => setSelectedHistory(null)}
         />
       </div>
     </div>
