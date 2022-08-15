@@ -15,11 +15,17 @@ import { setIsAuthorized, setToken, setUserData } from './redux/actions/auth';
 import { UserData } from './interfaces/auth';
 import Loading from './components/Loading';
 import MultipleLoginError from './pages/MultipleLoginError';
+import LoadTestPage from './pages/LoadTest';
 
 export const routes: RouteProps[] = [
   {
     Component: LoginPage,
     path: '/login',
+    beforeLoggedIn: true,
+  },
+  {
+    Component: LoadTestPage,
+    path: '/load-test',
     beforeLoggedIn: true,
   },
   {
