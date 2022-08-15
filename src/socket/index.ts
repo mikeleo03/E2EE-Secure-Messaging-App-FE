@@ -6,6 +6,8 @@ const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io(
   config.API_URL,
   {
     autoConnect: false,
+    reconnection: true,
+    transports: ['websocket'],
   }
 );
 

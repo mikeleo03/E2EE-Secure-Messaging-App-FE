@@ -18,6 +18,8 @@ import Loading from '../components/Loading';
 import { commonSelector } from '../redux/selectors/common';
 import { useDispatch } from 'react-redux';
 import { setIsLoading } from '../redux/actions/common';
+import { setTopic } from '../redux/actions/auth';
+import { setRoomId } from '../redux/actions/room';
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
@@ -78,6 +80,12 @@ const Home: React.FC = () => {
       navigate('/multiple-login-error', { replace: true });
     });
 
+    socket.on('matched', (roomId) => {
+      dispatch(setTopic(-1));
+      navigate('/chat');
+      dispatch(setRoomId(roomId));
+    });
+
     socket.emit('getOnlineUsers');
   }, []);
 
@@ -102,7 +110,7 @@ const Home: React.FC = () => {
             >
               See Chat History
             </OrangeButton>
-            <OnlineUsers numUsers={onlineUsers} />
+            {/* <OnlineUsers numUsers={onlineUsers} /> */}
             <Topics topics={topicData} />
             <OrangeButton onClick={handleRedirectFindMatch}>
               Find Match
