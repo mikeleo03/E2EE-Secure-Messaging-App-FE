@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import image from '../resources/image.png';
+import image from '../resources/no-user-found.png';
 import OrangeButton from './OrangeButton';
 
 interface ChatEndedProps {

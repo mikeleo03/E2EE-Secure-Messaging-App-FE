@@ -19,7 +19,7 @@ const Matched: React.FC = () => {
       <img className="w-[300px] md:w-[421px] mb-5" src={image} />
       <div className="font-magilio text-heading">No ser ound</div>
       <OrangeButton className="my-6" onClick={handleRedirect}>
-        Back To Main Page
+        Back To Home Page
       </OrangeButton>
     </motion.div>
   );
