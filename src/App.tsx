@@ -17,6 +17,7 @@ import { UserData } from './interfaces/auth';
 import Loading from './components/Loading';
 import MultipleLoginError from './pages/MultipleLoginError';
 import BackgroundMusic from './assets/audio/audio.mp3';
+import HelmetMeta from './utils/HelmetMeta';
 
 function fixComponent<T>(component: T): T {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -123,10 +124,47 @@ const App: React.FC = () => {
     initState();
   }, []);
 
+  /** Helmet meta */
+  const [title, setTitle] = useState('Samitra');
+  const [description, setDescription] = useState(
+    'Halaman Utama Landing Page OSKM 2022'
+  );
+
+  useEffect(() => {
+    if (location.pathname === '/') {
+      setTitle('Samitra');
+      setDescription('Samitra OSKM 2022');
+    }
+
+    if (location.pathname === '/login') {
+      setTitle('Login');
+      setDescription('Login Samitra OSKM 2022');
+    }
+
+    if (location.pathname === '/chat') {
+      setTitle('Chat');
+      setDescription('Chatting Page');
+    }
+
+    if (location.pathname === '/history') {
+      setTitle('Hisotry');
+      setDescription('Chat history');
+    }
+    if (location.pathname === '/matchmaking') {
+      setTitle('Matchmaking');
+      setDescription('Loading Matchmaking');
+    }
+    if (location.pathname === '/connection-error') {
+      setTitle('Error');
+      setDescription('Connection Error');
+    }
+  }, [location.pathname]);
+
   if (loading) return <Loading />;
 
   return (
     <div ref={inputRef} onClick={musicTrigger}>
+      <HelmetMeta title={title} description={description} />
       <Routes>
         {routes.map((route) => (
           <Route
