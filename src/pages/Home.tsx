@@ -21,6 +21,7 @@ import { setIsLoading } from '../redux/actions/common';
 import { setTopic } from '../redux/actions/auth';
 import { setRoomId } from '../redux/actions/room';
 import authServices from '../services/auth-services';
+import HomeGraphics from '../components/HomeGraphics';
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
@@ -109,6 +110,7 @@ const Home: React.FC = () => {
         <Loading />
       ) : (
         <div className="bg-white w-[100vw] h-[100vh] relative py-8">
+          <HomeGraphics />
           <div className="flex flex-col items-center text-center">
             <Identity name={userData?.name} nim={userData?.username}></Identity>
             <OrangeButton className="mt-3 mb-6" onClick={handleLogout}>

@@ -165,7 +165,19 @@ const App: React.FC = () => {
   return (
     <div ref={inputRef} onClick={musicTrigger}>
       <HelmetMeta title={title} description={description} />
-      <LoginPage />
+      <Routes>
+        {routes.map((route) => (
+          <Route
+            key={route.path}
+            path={route.path}
+            element={
+              <RouteGuard {...route}>
+                <route.Component />
+              </RouteGuard>
+            }
+          ></Route>
+        ))}
+      </Routes>
       <ReactAudioPlayerComponent
         id="backgroundMusic"
         src={BackgroundMusic}

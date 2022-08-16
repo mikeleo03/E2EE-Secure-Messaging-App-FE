@@ -1,6 +1,5 @@
 /* eslint-disable max-len */
 import React from 'react';
-import rectangle from '../resources/rectangle.png';
 
 interface VStockProps {
   className?: string;
