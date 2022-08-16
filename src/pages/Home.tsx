@@ -20,6 +20,7 @@ import { useDispatch } from 'react-redux';
 import { setIsLoading } from '../redux/actions/common';
 import { setTopic } from '../redux/actions/auth';
 import { setRoomId } from '../redux/actions/room';
+import authServices from '../services/auth-services';
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
@@ -51,11 +52,20 @@ const Home: React.FC = () => {
   };
 
   const { token } = useSelector(authSelector);
-  const [onlineUsers, setOnlineUsers] = useState(0);
+
+  const connectSocket = async () => {
+    const username = userData?.username as string;
+    const res = await authServices.canConnectSocket(username);
+    if (res.canConnect || !is_loading) {
+      socket.connect();
+    } else {
+      navigate('/connection-error', { replace: true });
+    }
+  };
 
   useEffect(() => {
     socket.auth = { token };
-    socket.connect();
+    connectSocket();
 
     // socket.on('onlineUsers', (value) => {
     //   setOnlineUsers(value);
@@ -77,7 +87,7 @@ const Home: React.FC = () => {
     socket.on('connect_error', (err) => {
       // TODO: Handle and redirect to error page
       console.error(err);
-      navigate('/multiple-login-error', { replace: true });
+      navigate('/connection-error', { replace: true });
     });
 
     socket.on('matched', (roomId) => {

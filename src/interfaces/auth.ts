@@ -10,3 +10,7 @@ export interface LoginStatusResponse {
   jwt: string;
   user: UserData;
 }
+
+export interface GetSessionResponse {
+  canConnect: boolean;
+}
