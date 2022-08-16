@@ -1,4 +1,6 @@
+import axios from 'axios';
 import services from '.';
+import config from '../config';
 
 const login = async ({
   username,
@@ -7,12 +9,15 @@ const login = async ({
   username: string;
   password: string;
 }) => {
-  const res = await services.post('/auth', { identifier: username, password });
+  const res = await axios.post(`${config.API_URL}/auth`, {
+    identifier: username,
+    password,
+  });
   return res.data;
 };
 
 const getMyProfile = async (token: string) => {
-  const res = await services.get('/user', {
+  const res = await axios.get(`${config.API_URL}/user`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },

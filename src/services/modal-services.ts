@@ -1,5 +1,7 @@
+import axios from 'axios';
 import Cookies from 'universal-cookie';
 import services from '.';
+import config from '../config';
 
 export const submitReport = async ({
   chat_id,
@@ -12,8 +14,8 @@ export const submitReport = async ({
 }) => {
   const cookie = new Cookies();
   const cookies = cookie.getAll();
-  const res = await services.post(
-    '/reports',
+  const res = await axios.post(
+    `${config.API_URL}/reports`,
     { chat_id, issuer_id, reason },
     {
       headers: {
@@ -25,7 +27,7 @@ export const submitReport = async ({
 };
 
 export const requestNewTopic = async (name: string) => {
-  const res = await services.post('/request-topics', {
+  const res = await axios.post(`${config.API_URL}/request-topics`, {
     name,
   });
   return res.data;
