@@ -1,6 +1,7 @@
 import axios from 'axios';
-import services from '.';
+import Cookies from 'universal-cookie';
 import config from '../config';
+import { GetSessionResponse } from '../interfaces/auth';
 
 const login = async ({
   username,
@@ -26,4 +27,16 @@ const getMyProfile = async (token: string) => {
   return res.data;
 };
 
-export default { login, getMyProfile };
+const canConnectSocket = async (username: string) => {
+  const cookie = new Cookies();
+  const cookies = cookie.getAll();
+  const res = await axios.get(`${config.API_URL}/socket-connect`, {
+    headers: {
+      Authorization: `Bearer ${cookies.token}`,
+    },
+  });
+
+  return res.data as GetSessionResponse;
+};
+
+export default { login, getMyProfile, canConnectSocket };

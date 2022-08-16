@@ -18,7 +18,7 @@ import Loading from './components/Loading';
 import MultipleLoginError from './pages/MultipleLoginError';
 import BackgroundMusic from './assets/audio/audio.mp3';
 
-function fixComponent<T>(component: T):T {
+function fixComponent<T>(component: T): T {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return (component as any).default ?? component;
 }
@@ -57,7 +57,7 @@ export const routes: RouteProps[] = [
   },
   {
     Component: MultipleLoginError,
-    path: '/multiple-login-error',
+    path: '/connection-error',
     afterLoggedIn: true,
   },
 ];
@@ -65,7 +65,7 @@ export const routes: RouteProps[] = [
 const App: React.FC = () => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
-  
+
   const inputRef = React.useRef<HTMLDivElement>(null);
 
   useEffect(() => {
