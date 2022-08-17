@@ -4,10 +4,12 @@ import Heading from '../components/Heading';
 import LoginForm from '../components/LoginForm';
 import LoginPageGraphics from '../components/LoginPageGraphics';
 import Logo from '../assets/LogoOnly.png';
+import PrivacyPolicyModal from '../components/PrivacyPolicyModal';
 
 const LoginPage: React.FC = () => {
   return (
     <div>
+      <PrivacyPolicyModal />
       <LoginPageGraphics />
       <div className="h-screen w-screen flex items-center flex-col gap-48 bg-[#FFC176]">
         <div className="w-full h-[200px] lg:h-[225px] flex items-center justify-center relative bg-[#79C7D4]">
