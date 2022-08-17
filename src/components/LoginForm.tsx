@@ -62,7 +62,6 @@ const LoginForm: React.FC = () => {
       }
     } finally {
       setIsLoading(false);
-      console.log(stores.getState());
     }
   };
 
