@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import ReduxDemo from './pages/ReduxDemo';
 import './main.css';
 import { Route, Routes } from 'react-router-dom';
 import ReactAudioPlayer from 'react-audio-player';
@@ -44,11 +43,6 @@ export const routes: RouteProps[] = [
   {
     Component: History,
     path: '/history',
-    afterLoggedIn: true,
-  },
-  {
-    Component: ReduxDemo,
-    path: '/redux-demo',
     afterLoggedIn: true,
   },
   {

@@ -36,7 +36,6 @@ const ChatContainer: React.FC<ChatContainerProps> = ({
 
   useEffect(() => {
     socket.on('message', ({ content, from }) => {
-      console.log(chatData);
       setChatData((prevData) => [
         { message: content, isFromMe: socket.id === from },
         ...prevData,

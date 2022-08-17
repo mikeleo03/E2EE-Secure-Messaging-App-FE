@@ -100,8 +100,6 @@ const Home: React.FC = () => {
     socket.emit('getOnlineUsers');
   }, []);
 
-  console.log(stores.getState());
-
   return (
     <>
       <TutorialModal />
