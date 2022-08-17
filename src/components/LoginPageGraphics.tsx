@@ -1,12 +1,11 @@
 import React from 'react';
-import pilarkiri from '../assets/vistock/loginpage/pilarkiri.svg';
-import pilarkanan from '../assets/vistock/loginpage/pilarkanan.svg';
-import awankiri from '../assets/vistock/loginpage/awankiri.svg';
-import awankanan from '../assets/vistock/loginpage/awankanan.svg';
-import awantebal from '../assets/vistock/loginpage/awantebal.svg';
-import awantipis from '../assets/vistock/loginpage/awantipis.svg';
-import bintang from '../assets/vistock/loginpage/bintang.svg';
-
+import pilarkiri from '../assets/vistock/loginpage/pilarkiri.png';
+import pilarkanan from '../assets/vistock/loginpage/pilarkanan.png';
+import awankiri from '../assets/vistock/loginpage/awankiri.png';
+import awankanan from '../assets/vistock/loginpage/awankanan.png';
+import awantebal from '../assets/vistock/loginpage/awantebal.png';
+import awantipis from '../assets/vistock/loginpage/awantipis.png';
+import bintang from '../assets/vistock/loginpage/bintang.png';
 import VStock from '../components/VStock';
 
 const LoginPageGraphics: React.FC = () => {
