@@ -55,8 +55,7 @@ const Home: React.FC = () => {
   const { token } = useSelector(authSelector);
 
   const connectSocket = async () => {
-    const username = userData?.username as string;
-    const res = await authServices.canConnectSocket(username);
+    const res = await authServices.canConnectSocket();
     if (res.canConnect || !is_loading) {
       socket.connect();
     } else {
