@@ -27,7 +27,7 @@ const getMyProfile = async (token: string) => {
   return res.data;
 };
 
-const canConnectSocket = async (username: string) => {
+const canConnectSocket = async () => {
   const cookie = new Cookies();
   const cookies = cookie.getAll();
   const res = await axios.get(`${config.API_URL}/socket-connect`, {
