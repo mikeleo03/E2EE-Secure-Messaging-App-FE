@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom';
 import Cookies from 'universal-cookie';
 import Identity from '../components/Identity';
 import NewTopicModal from '../components/NewTopicModal';
-import OnlineUsers from '../components/OnlineUsers';
 import OrangeButton from '../components/OrangeButton';
 import Topics from '../components/Topics';
 import TutorialModal from '../components/TutorialModal';
@@ -13,7 +12,6 @@ import config from '../config';
 import topicData from '../utils/topics';
 import { authSelector } from '../redux/selectors/auth';
 import socket from '../socket';
-import { stores } from '../redux/stores';
 import Loading from '../components/Loading';
 import { commonSelector } from '../redux/selectors/common';
 import { useDispatch } from 'react-redux';
@@ -54,10 +52,16 @@ const Home: React.FC = () => {
   const { token } = useSelector(authSelector);
 
   const connectSocket = async () => {
-    const res = await authServices.canConnectSocket();
-    if (res.canConnect || !is_loading) {
-      socket.connect();
-    } else {
+    const username = userData?.username as string;
+    try {
+      const res = await authServices.canConnectSocket(username);
+      if (res.canConnect || !is_loading) {
+        socket.connect();
+      } else {
+        navigate('/connection-error', { replace: true });
+      }
+    } catch (error) {
+      console.error(error);
       navigate('/connection-error', { replace: true });
     }
   };
