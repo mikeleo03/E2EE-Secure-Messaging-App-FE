@@ -3,7 +3,7 @@ import { FiLogIn } from 'react-icons/fi';
 import Heading from '../components/Heading';
 import LoginForm from '../components/LoginForm';
 import LoginPageGraphics from '../components/LoginPageGraphics';
-import Logo from '../resources/Logo.svg';
+import Logo from '../assets/LogoOnly.png';
 
 const LoginPage: React.FC = () => {
   return (
@@ -15,7 +15,7 @@ const LoginPage: React.FC = () => {
             className="bg-[#F27267] w-[54vw] sm:w-[40vw] lg:w-[25vw] h-40 lg:h-24 z-40 rounded-lg
         absolute mx-auto xs:top-28 lg:top-44 flex justify-center items-center"
           >
-            <Heading className="text-white m-auto">Social App</Heading>
+            <Heading className="text-white m-auto"> amir</Heading>
           </div>
         </div>
         <div className="absolute top-72 flex">
