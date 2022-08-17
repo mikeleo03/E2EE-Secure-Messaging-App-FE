@@ -22,12 +22,6 @@ const ReportModal: React.FC = () => {
   const [otherValue, setOtherValue] = useState('');
   const [modalText, setModalText] = useState('Content of the modal');
 
-  //   const handleOk = () => {
-  //     return new Promise((resolve, reject) => {
-  //       setTimeout(Math.random() > 0.5 ? resolve : reject, 1000);
-  //     }).catch(() => console.log('Oops errors!'));
-  //   };
-
   const handleOtherChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setOtherValue(e.target.value);
   };
@@ -56,14 +50,6 @@ const ReportModal: React.FC = () => {
         form.resetFields();
       }, 1000);
     }
-    // setTimeout(() => {
-    //   dispatch(setReportModal(false));
-    //   setConfirmLoading(false);
-    // }, 2000);
-
-    // try{
-    //   const res = (await submitReport({}))
-    // }
   };
 
   const handleCancel = () => {

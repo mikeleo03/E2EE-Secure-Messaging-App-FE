@@ -6,7 +6,7 @@ import { authSelector } from '../redux/selectors/auth';
 import Heading from './Heading';
 import HistoryGraphics from './HistoryGraphics';
 import Nametag from './Nametag';
-import jamur2 from '../assets/vistock/history/jamur2.svg';
+import jamur2 from '../assets/vistock/history/jamur2.png';
 import VStock from '../components/VStock';
 
 const HistoryHeading: React.FC = () => {

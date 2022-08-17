@@ -30,11 +30,15 @@ const getMyProfile = async (token: string) => {
 const canConnectSocket = async (username: string) => {
   const cookie = new Cookies();
   const cookies = cookie.getAll();
-  const res = await axios.get(`${config.API_URL}/socket-connect`, {
-    headers: {
-      Authorization: `Bearer ${cookies.token}`,
-    },
-  });
+  const res = await axios.post(
+    `${config.API_URL}/socket-connect`,
+    { identifier: username },
+    {
+      headers: {
+        Authorization: `Bearer ${cookies.token}`,
+      },
+    }
+  );
 
   return res.data as GetSessionResponse;
 };

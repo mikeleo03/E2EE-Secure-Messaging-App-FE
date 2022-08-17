@@ -1,7 +1,7 @@
 import React from 'react';
-import jamur from '../assets/vistock/history/jamur.svg';
-import kunang from '../assets/vistock/history/kunang.svg';
-import kunang2 from '../assets/vistock/history/kunang2.svg';
+import jamur from '../assets/vistock/history/jamur.png';
+import kunang from '../assets/vistock/history/kunang.png';
+import kunang2 from '../assets/vistock/history/kunang2.png';
 import VStock from '../components/VStock';
 
 const HistoryGraphics: React.FC = () => {

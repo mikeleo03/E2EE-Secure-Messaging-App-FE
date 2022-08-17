@@ -24,7 +24,7 @@ const LoginPage: React.FC = () => {
           <div className="font-alegreyasans text-body m-auto mr-[10px]">
             Presented by
           </div>
-          <img src={Logo} className="w-[50px]"></img>
+          <img src={Logo} className="w-[40px]"></img>
         </div>
         <div
           className="bg-[#F7F7F8] xs:w-[70vw] sm:w-[50vw] lg:w-[35vw] rounded-lg
