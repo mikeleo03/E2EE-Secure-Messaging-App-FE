@@ -1,7 +1,7 @@
 import React from 'react';
-import batukiri from '../assets/vistock/home/batukiri.svg';
-import batukanan from '../assets/vistock/home/batukanan.svg';
-import bintang from '../assets/vistock/home/bintang.svg';
+import batukiri from '../assets/vistock/home/batukiri.png';
+import batukanan from '../assets/vistock/home/batukanan.png';
+import bintang from '../assets/vistock/home/bintang.png';
 import VStock from '../components/VStock';
 
 const HomeGraphics: React.FC = () => {
