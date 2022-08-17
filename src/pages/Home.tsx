@@ -40,7 +40,6 @@ const Home: React.FC = () => {
   };
 
   const handleLogout: React.MouseEventHandler<HTMLButtonElement> = () => {
-    console.log('logout');
     const cookie = new Cookies();
     cookie.remove('token', { path: '/', domain: config.DOMAIN_URL });
     window.location.reload();
