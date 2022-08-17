@@ -1,5 +1,4 @@
 import React from 'react';
-import { FiLogIn } from 'react-icons/fi';
 import Heading from '../components/Heading';
 import LoginForm from '../components/LoginForm';
 import LoginPageGraphics from '../components/LoginPageGraphics';

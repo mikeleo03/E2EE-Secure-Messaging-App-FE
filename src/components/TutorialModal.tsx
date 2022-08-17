@@ -33,7 +33,10 @@ const TutorialModal: React.FC = () => {
               <CaptionCard text="1. Choose Your Topic." />
             </div>
             <div>
-              <CaptionCard text="2. Click Finding Match Button to find a match." />
+              <CaptionCard
+                text="2. Click Finding Match Button to find a match. 
+              Matchmaking is limited to 50 times/day"
+              />
             </div>
             <div>
               <CaptionCard text="3. Wait for a match to occur." />

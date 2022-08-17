@@ -21,7 +21,7 @@ const Matched: React.FC = () => {
         exit={{ opacity: 0 }}
       />
       <div className="font-magilio text-heading">
-        atching Up{'.'.repeat(loadingFrame)}
+        atching Up{'.'.repeat(Math.abs(loadingFrame))}
       </div>
     </div>
   );
