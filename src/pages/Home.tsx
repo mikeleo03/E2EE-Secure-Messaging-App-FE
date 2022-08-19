@@ -20,12 +20,15 @@ import { setTopic } from '../redux/actions/auth';
 import { setRoomId } from '../redux/actions/room';
 import authServices from '../services/auth-services';
 import HomeGraphics from '../components/HomeGraphics';
+import OnlineUsers from '../components/OnlineUsers';
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { is_loading } = useSelector(commonSelector);
   const { userData, topic } = useSelector(authSelector);
+
+  const [onlineUsers, setOnlineUsers] = useState(0);
 
   const handleRedirectFindMatch: React.MouseEventHandler<
     HTMLButtonElement
@@ -70,9 +73,9 @@ const Home: React.FC = () => {
     socket.auth = { token };
     connectSocket();
 
-    // socket.on('onlineUsers', (value) => {
-    //   setOnlineUsers(value);
-    // });
+    socket.on('onlineUsers', (value) => {
+      setOnlineUsers(value);
+    });
 
     socket.on('continueMatch', () => {
       navigate('/matchmaking', { replace: true });
@@ -122,7 +125,7 @@ const Home: React.FC = () => {
             >
               See Chat History
             </OrangeButton>
-            {/* <OnlineUsers numUsers={onlineUsers} /> */}
+            <OnlineUsers numUsers={onlineUsers} />
             <Topics topics={topicData} />
             <OrangeButton onClick={handleRedirectFindMatch}>
               Find Match
