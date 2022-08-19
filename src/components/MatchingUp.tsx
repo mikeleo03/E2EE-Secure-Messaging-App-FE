@@ -15,7 +15,7 @@ const Matched: React.FC = () => {
 
     setTimeout(() => {
       setIsCancelButton(true);
-    }, 10000);
+    }, 20000);
     return () => clearInterval(interval);
   }, []);
 

@@ -8,7 +8,6 @@ import NoUserFound from '../components/NoUserFound';
 import { setTopic } from '../redux/actions/auth';
 import { setRoomId } from '../redux/actions/room';
 import { authSelector } from '../redux/selectors/auth';
-import { stores } from '../redux/stores';
 import socket from '../socket';
 
 const Matchmaking: React.FC = () => {
@@ -37,7 +36,7 @@ const Matchmaking: React.FC = () => {
 
     const matchmakingTimeout = setTimeout(() => {
       handleNotFound();
-    }, 30000);
+    }, 120000);
 
     return () => handleNotFound();
   }, []);
