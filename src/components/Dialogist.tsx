@@ -6,6 +6,9 @@ import { useDispatch } from 'react-redux';
 import { setReportModal } from '../redux/actions/modal';
 import axios from 'axios';
 import UnknownAvatar from '../assets/profile/UnknownAvatar.png';
+import { trimString } from '../utils';
+import socket from '../socket';
+import { fruits } from '../utils/fruits';
 
 interface DialogistProps {
   dialogist?: string;
@@ -23,9 +26,15 @@ const Dialogist: React.FC<DialogistProps> = ({ dialogist, handleReveal }) => {
     getRandomName();
   }, []);
 
+  const getRandomInt = (min: number, max: number) => {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
+  };
+
   const getRandomName = async () => {
-    const res = await axios.get('https://randomuser.me/api/');
-    setRandomName('Anonymous ' + res.data.results[0].name.first);
+    const idx = getRandomInt(1, 34);
+    setRandomName('Anonymous ' + fruits[idx]);
   };
 
   const openReportModal = () => {
@@ -34,6 +43,9 @@ const Dialogist: React.FC<DialogistProps> = ({ dialogist, handleReveal }) => {
 
   const requestNameReveal = () => {
     setRevealButtonText('Requested');
+    socket.emit('message', {
+      content: 'I have requested name reveal!',
+    });
     handleReveal();
   };
 
@@ -46,7 +58,7 @@ const Dialogist: React.FC<DialogistProps> = ({ dialogist, handleReveal }) => {
       <div className="flex flex-col items-center">
         <div className="flex items-center xs:mb-[8px] lg:mb-[19px]">
           <p className="font-alegreya xs:text-body lg:text-[40px] m-0 mr-[15px]">
-            {dialogist || randomName}
+            {trimString(dialogist) || randomName}
           </p>
         </div>
         <WhiteButton
