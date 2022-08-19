@@ -8,6 +8,7 @@ import axios from 'axios';
 import UnknownAvatar from '../assets/profile/UnknownAvatar.png';
 import { trimString } from '../utils';
 import socket from '../socket';
+import { fruits } from '../utils/fruits';
 
 interface DialogistProps {
   dialogist?: string;
@@ -25,9 +26,15 @@ const Dialogist: React.FC<DialogistProps> = ({ dialogist, handleReveal }) => {
     getRandomName();
   }, []);
 
+  const getRandomInt = (min: number, max: number) => {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
+  };
+
   const getRandomName = async () => {
-    const res = await axios.get('https://randomuser.me/api/');
-    setRandomName('Anonymous ' + res.data.results[0].name.first);
+    const idx = getRandomInt(1, 34);
+    setRandomName('Anonymous ' + fruits[idx]);
   };
 
   const openReportModal = () => {
