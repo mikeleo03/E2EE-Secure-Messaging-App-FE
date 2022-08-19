@@ -37,7 +37,7 @@ const Matchmaking: React.FC = () => {
 
     const matchmakingTimeout = setTimeout(() => {
       handleNotFound();
-    }, 10000);
+    }, 30000);
 
     return () => handleNotFound();
   }, []);

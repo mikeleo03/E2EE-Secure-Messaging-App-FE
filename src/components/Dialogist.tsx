@@ -6,6 +6,8 @@ import { useDispatch } from 'react-redux';
 import { setReportModal } from '../redux/actions/modal';
 import axios from 'axios';
 import UnknownAvatar from '../assets/profile/UnknownAvatar.png';
+import { trimString } from '../utils';
+import socket from '../socket';
 
 interface DialogistProps {
   dialogist?: string;
@@ -34,6 +36,9 @@ const Dialogist: React.FC<DialogistProps> = ({ dialogist, handleReveal }) => {
 
   const requestNameReveal = () => {
     setRevealButtonText('Requested');
+    socket.emit('message', {
+      content: 'I have requested name reveal!',
+    });
     handleReveal();
   };
 
@@ -46,7 +51,7 @@ const Dialogist: React.FC<DialogistProps> = ({ dialogist, handleReveal }) => {
       <div className="flex flex-col items-center">
         <div className="flex items-center xs:mb-[8px] lg:mb-[19px]">
           <p className="font-alegreya xs:text-body lg:text-[40px] m-0 mr-[15px]">
-            {dialogist || randomName}
+            {trimString(dialogist) || randomName}
           </p>
         </div>
         <WhiteButton
