@@ -26,6 +26,7 @@ const ChatRoom: React.FC = () => {
 
   const clearRoomId = () => {
     dispatch(setRoomId(null));
+    socket.emit('leaveRoom');
   };
 
   useEffect(() => {
