@@ -9,7 +9,7 @@ export interface ServerToClientEvents {
   message: (payload: { content: string; from: string }) => void;
   messageFail: (payload: { error: string }) => void;
   endChat: (message: string) => void;
-  // onlineUsers: (onlineUsers: number) => void;
+  onlineUsers: (onlineUsers: number) => void;
   quotaExceeded: () => void;
   continueMatch: () => void;
   finishLoading: () => void;
@@ -22,4 +22,5 @@ export interface ClientToServerEvents {
   message: (payload: { content: string }) => Promise<void>;
   endChat: () => void;
   getOnlineUsers: () => void;
+  leaveRoom: () => void;
 }
