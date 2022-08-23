@@ -6,6 +6,7 @@ const initialState: ModalState = {
   new_topic_modal: false,
   tutorial_modal: false,
   report_modal: false,
+  promotion_modal: false,
 };
 
 const {
@@ -13,6 +14,7 @@ const {
   SET_NEW_TOPIC_MODAL,
   SET_TUTORIAL_MODAL,
   SET_REPORT_MODAL,
+  SET_PROMOTION_MODAL,
 } = ModalType;
 
 const modal = (
@@ -53,6 +55,14 @@ const modal = (
     };
   };
 
+  const setPromotionModal = (): ModalState => {
+    const { payload: promotion_modal } = action;
+    return {
+      ...state,
+      promotion_modal,
+    };
+  };
+
   switch (type) {
     case SET_PRIVACY_POLICY_MODAL:
       return setPrivacyPolicyModal();
@@ -62,6 +72,8 @@ const modal = (
       return setTutorialModal();
     case SET_REPORT_MODAL:
       return setReportModal();
+    case SET_PROMOTION_MODAL:
+      return setPromotionModal();
     default:
       return state;
   }

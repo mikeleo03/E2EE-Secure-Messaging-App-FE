@@ -5,6 +5,7 @@ const {
   SET_NEW_TOPIC_MODAL,
   SET_TUTORIAL_MODAL,
   SET_REPORT_MODAL,
+  SET_PROMOTION_MODAL,
 } = ModalType;
 
 export const setPrivacyPolicyModal = (value: boolean): ModalAction => {
@@ -31,6 +32,13 @@ export const setTutorialModal = (value: boolean): ModalAction => {
 export const setReportModal = (value: boolean): ModalAction => {
   return {
     type: SET_REPORT_MODAL,
+    payload: value,
+  };
+};
+
+export const setPromotionModal = (value: boolean): ModalAction => {
+  return {
+    type: SET_PROMOTION_MODAL,
     payload: value,
   };
 };

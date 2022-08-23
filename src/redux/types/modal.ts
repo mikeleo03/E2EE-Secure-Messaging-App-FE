@@ -3,6 +3,7 @@ export enum ModalType {
   SET_NEW_TOPIC_MODAL = 'SET_NEW_TOPIC_MODAL',
   SET_TUTORIAL_MODAL = 'SET_TUTORIAL_MODAL',
   SET_REPORT_MODAL = 'SET_REPORT_MODAL',
+  SET_PROMOTION_MODAL = 'SET_PROMOTION_MODAL',
 }
 
 export interface ModalState {
@@ -10,6 +11,7 @@ export interface ModalState {
   new_topic_modal: boolean;
   tutorial_modal: boolean;
   report_modal: boolean;
+  promotion_modal: boolean;
 }
 
 export interface SetModal {
@@ -17,7 +19,8 @@ export interface SetModal {
     | ModalType.SET_PRIVACY_POLICY_MODAL
     | ModalType.SET_NEW_TOPIC_MODAL
     | ModalType.SET_TUTORIAL_MODAL
-    | ModalType.SET_REPORT_MODAL;
+    | ModalType.SET_REPORT_MODAL
+    | ModalType.SET_PROMOTION_MODAL;
   payload: boolean;
 }
 
