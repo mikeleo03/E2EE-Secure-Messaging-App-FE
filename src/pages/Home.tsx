@@ -116,6 +116,11 @@ const Home: React.FC = () => {
           <HomeGraphics />
           <div className="flex flex-col items-center text-center">
             <Identity name={userData?.name} nim={userData?.username}></Identity>
+            <div className="xs:w-[90%] lg:w-[281px]">
+              <p className="text-primaryRed">
+                Samitra akan ditutup pada 28 Agustus 2022 pukul 22:00 WIB
+              </p>
+            </div>
             <OrangeButton className="mt-3 mb-6" onClick={handleLogout}>
               Logout
             </OrangeButton>
