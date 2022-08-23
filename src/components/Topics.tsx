@@ -36,15 +36,16 @@ const Topics: React.FC<TopicsProps> = ({ className, topics }) => {
   useEffect(() => {
     const cookie = new Cookies();
     const cookies = cookie.getAll();
+    console.log(cookies.promotion);
     if (!cookies.promotion) {
-      cookie.set('promotion', moment('').format('LLLL'), {
+      cookie.set('promotion', Date().toString(), {
         path: '/',
         domain: config.DOMAIN_URL,
       });
       dispatch(setPromotionModal(true));
     } else {
       if (!lessThanOneHourAgo(cookies.promotion)) {
-        cookie.set('promotion', moment().format('LLLL'), {
+        cookie.set('promotion', Date().toString(), {
           path: '/',
           domain: config.DOMAIN_URL,
         });
