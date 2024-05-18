@@ -36,6 +36,8 @@ const ChatContainer: React.FC<ChatContainerProps> = ({
 
   useEffect(() => {
     socket.on('message', ({ content, from }) => {
+
+      // TODO : Decrypt dari server, pake shared B
       setChatData((prevData) => [
         { message: content, isFromMe: socket.id === from },
         ...prevData,
@@ -45,6 +47,8 @@ const ChatContainer: React.FC<ChatContainerProps> = ({
 
   const sendMessage = () => {
     if (message !== '') {
+
+      // TODO : Send ke server encrypted pake shared A
       socket.emit('message', { content: message });
       setMessage('');
     }

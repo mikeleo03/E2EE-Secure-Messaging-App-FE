@@ -27,6 +27,8 @@ const Matchmaking: React.FC = () => {
       navigate('/', { replace: true });
     }
     socket.on('matched', (roomId) => {
+      // TODO : Add handshake
+
       setStatus(1);
       dispatch(setTopic(-1));
       navigate('/chat');
