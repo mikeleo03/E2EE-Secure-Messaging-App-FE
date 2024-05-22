@@ -8,6 +8,7 @@ import Dialogist from './Dialogist';
 import { CryptoNight } from '../algorithms/cryptonight';
 import { deriveKeys } from '../algorithms/ECDH/ECDHUtils';
 import { ECPoint } from '../algorithms/ECC/EllipticCurve';
+import { getWithExpiry } from '../utils/expiryStorage';
 
 interface ChatContainerProps {
   myName?: string;
@@ -41,7 +42,7 @@ const ChatContainer: React.FC<ChatContainerProps> = ({
     socket.on('messageReceive', async ({ encrypted }) => {
       // RECEIVER RECEIVING MESSAGE PROTOCOL
       // Get the shared keys from local storage
-      const userSharedSecret = localStorage.getItem(socket.id);
+      const userSharedSecret = getWithExpiry(socket.id);
       if (userSharedSecret) {
         const { x, y } = JSON.parse(userSharedSecret);
         const sharedSecret = new ECPoint(BigInt(x as string), BigInt(y as string));
@@ -65,7 +66,7 @@ const ChatContainer: React.FC<ChatContainerProps> = ({
     if (message !== '') {
       // SENDER SENDING MESSAGE PROTOCOL
       // Get the shared keys from local storage
-      const userSharedSecret = localStorage.getItem(socket.id);
+      const userSharedSecret = getWithExpiry(socket.id);
       if (userSharedSecret) {
         const { x, y } = JSON.parse(userSharedSecret);
         const sharedSecret = new ECPoint(BigInt(x as string), BigInt(y as string));

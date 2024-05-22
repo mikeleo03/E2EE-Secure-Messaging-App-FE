@@ -23,6 +23,7 @@ import HomeGraphics from '../components/HomeGraphics';
 import OnlineUsers from '../components/OnlineUsers';
 import { computeSharedSecret, generateKeyPair } from '../algorithms/ECDH/ECDHUtils'
 import { ECPoint, EllipticCurve } from '../algorithms/ECC/EllipticCurve';
+import { setWithExpiry } from '../utils/expiryStorage';
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
@@ -123,7 +124,7 @@ const Home: React.FC = () => {
       const userPrivateKey = userPrivateKeyRef.current; // Get the latest private key from ref
       const userServerSharedSecret = computeSharedSecret(BigInt(userPrivateKey), serverPublic, curve);
       const data = JSON.stringify({ x: userServerSharedSecret.x.toString(), y: userServerSharedSecret.y.toString() });
-      localStorage.setItem(socket.id, data);
+      setWithExpiry(socket.id, data, 10 * 60 * 1000);
       socket.emit('matchmaking', topic.toString());
     });
 
