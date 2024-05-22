@@ -50,7 +50,7 @@ const ChatContainer: React.FC<ChatContainerProps> = ({
 
   const sendMessage = async () => {
     if (message !== '') {
-      // SENDING MESSAGE PROTOCOL
+      // SENDER SENDING MESSAGE PROTOCOL
       // Get the shared keys from local storage
       const userSharedSecret = localStorage.getItem(socket.id);
       if (userSharedSecret) {
