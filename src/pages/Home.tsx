@@ -1,5 +1,5 @@
 import { message } from 'antd';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'universal-cookie';
@@ -31,28 +31,24 @@ const Home: React.FC = () => {
   const { userData, topic } = useSelector(authSelector);
 
   const [onlineUsers, setOnlineUsers] = useState(0);
-  const [userPrivateKey, setUserPrivateKey] = useState('');
+  const userPrivateKeyRef = useRef<string>('');
 
   // Define the curve
   const curve = new EllipticCurve();
 
-  const handleRedirectFindMatch: React.MouseEventHandler<
-    HTMLButtonElement
-  > = () => {
+  const handleRedirectFindMatch: React.MouseEventHandler<HTMLButtonElement> = useCallback(() => {
     if (topic != -1 && topic != topicData.length + 1) {
       // HANDSAKING
       // SEND ACK TO SERVER
       // User's key pair
       const userKeys = generateKeyPair(curve);
       const privateKey = userKeys.privateKey.toString();
-      setUserPrivateKey(privateKey);
-      console.log(privateKey);
-      console.log(userPrivateKey);
+      userPrivateKeyRef.current = privateKey;
       socket.emit('handshakeServer', userKeys.publicKey.toString());
     } else {
       message.error('Select a topic!');
     }
-  };
+  }, [topic]);
 
   const handleLogout: React.MouseEventHandler<HTMLButtonElement> = () => {
     const cookie = new Cookies();
@@ -68,7 +64,7 @@ const Home: React.FC = () => {
 
   const { token } = useSelector(authSelector);
 
-  const connectSocket = async () => {
+  const connectSocket = useCallback(async () => {
     const username = userData?.username as string;
     try {
       const res = await authServices.canConnectSocket(username);
@@ -81,19 +77,7 @@ const Home: React.FC = () => {
       console.error(error);
       navigate('/connection-error', { replace: true });
     }
-  };
-
-  // Define a function to compute the shared secret
-  const computeSharedSecretAndMatchmaking = (serverPublicKey: string, privateKey: string) => {
-    const serverPublic = ECPoint.fromString(serverPublicKey);
-    const userServerSharedSecret = computeSharedSecret(BigInt(privateKey), serverPublic, curve);
-    // Store the key to localStorage
-    const data = JSON.stringify({ x: userServerSharedSecret.x.toString(), y: userServerSharedSecret.y.toString() });
-    if (userData) {
-      localStorage.setItem(userData.username as string, data);
-      socket.emit('matchmaking', topic.toString());
-    }
-  };
+  }, [userData?.username, is_loading, navigate]);
 
   useEffect(() => {
     socket.auth = { token };
@@ -109,7 +93,7 @@ const Home: React.FC = () => {
 
     socket.on('quotaExceeded', () => {
       // eslint-disable-next-line quotes
-      message.error("Your daily matchmaking quota has reached it's limit");
+      message.error("Your daily matchmaking quota has reached its limit");
     });
 
     socket.on('finishLoading', () => {
@@ -122,19 +106,31 @@ const Home: React.FC = () => {
       navigate('/connection-error', { replace: true });
     });
 
-    socket.on('handshakeClient', (serverPublicKey: string) => {
-      console.log(userPrivateKey);
-      computeSharedSecretAndMatchmaking(serverPublicKey, userPrivateKey);
-    });
-
-    socket.on('matched', (roomId) => {
-      dispatch(setTopic(-1));
-      navigate('/chat');
-      dispatch(setRoomId(roomId));
-    });
-
     socket.emit('getOnlineUsers');
-  }, [userPrivateKey]);
+
+    return () => {
+      socket.off('onlineUsers');
+      socket.off('continueMatch');
+      socket.off('quotaExceeded');
+      socket.off('finishLoading');
+      socket.off('connect_error');
+    };
+  }, [connectSocket, dispatch, navigate]);
+
+  useEffect(() => {
+    socket.on('handshakeClient', (serverPublicKey: string) => {
+      const serverPublic = ECPoint.fromString(serverPublicKey);
+      const userPrivateKey = userPrivateKeyRef.current; // Get the latest private key from ref
+      const userServerSharedSecret = computeSharedSecret(BigInt(userPrivateKey), serverPublic, curve);
+      const data = JSON.stringify({ x: userServerSharedSecret.x.toString(), y: userServerSharedSecret.y.toString() });
+      localStorage.setItem(socket.id, data);
+      socket.emit('matchmaking', topic.toString());
+    });
+
+    return () => {
+      socket.off('handshakeClient');
+    };
+  }, [topic]);
 
   return (
     <>
