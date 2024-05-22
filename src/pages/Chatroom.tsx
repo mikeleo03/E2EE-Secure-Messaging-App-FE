@@ -43,6 +43,8 @@ const ChatRoom: React.FC = () => {
     });
 
     socket.on('endChat', (msg) => {
+      // Clear local storage
+      localStorage.clear();
       setChatEnded(msg);
       clearRoomId();
     });
