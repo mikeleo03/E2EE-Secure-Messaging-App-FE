@@ -76,7 +76,7 @@ const App: React.FC = () => {
       'backgroundMusic'
     ) as HTMLAudioElement;
     if (music != null) {
-      music.play();
+      // music.play();
     }
   };
 
