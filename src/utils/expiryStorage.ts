@@ -10,6 +10,8 @@ function getWithExpiry(key: string) {
     
     if (expiryTimeString === null) {
         // Value not found
+        // Clear local storage
+        localStorage.clear();
         return null;
     }
 
