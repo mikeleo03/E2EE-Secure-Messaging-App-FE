@@ -5,6 +5,9 @@ import { ChatData } from '../interfaces/chat';
 import socket from '../socket';
 import ChatBubble from './ChatBubble';
 import Dialogist from './Dialogist';
+import { CryptoNight } from '../algorithms/cryptonight';
+import { deriveKeys } from '../algorithms/ECDH/ECDHUtils';
+import { ECPoint } from '../algorithms/ECC/EllipticCurve';
 
 interface ChatContainerProps {
   myName?: string;
@@ -45,12 +48,23 @@ const ChatContainer: React.FC<ChatContainerProps> = ({
     });
   }, []);
 
-  const sendMessage = () => {
+  const sendMessage = async () => {
     if (message !== '') {
+      // SENDING MESSAGE PROTOCOL
+      // Get the shared keys from local storage
+      const userSharedSecret = localStorage.getItem(socket.id);
+      if (userSharedSecret) {
+        const { x, y } = JSON.parse(userSharedSecret);
+        const sharedSecret = new ECPoint(BigInt(x as string), BigInt(y as string));
 
-      // TODO : Send ke server encrypted pake shared A
-      socket.emit('message', { content: message });
-      setMessage('');
+        // User sent the message to Server using shared secret between User and Server
+        const ciphertextAliceServer = await CryptoNight.encryptToHex(message, deriveKeys(sharedSecret));
+        console.log('Encrypted (Sender-Server):', ciphertextAliceServer);
+        socket.emit('message', { encrypted: ciphertextAliceServer });
+        setMessage('');
+      } else {
+        console.log('No shared key found');
+      }
     }
   };
 
