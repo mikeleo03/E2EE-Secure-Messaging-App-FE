@@ -38,7 +38,7 @@ const ChatContainer: React.FC<ChatContainerProps> = ({
   }, []);
 
   useEffect(() => {
-    socket.on('message', ({ content, from }) => {
+    socket.on('message', async ({ encrypted }) => {
 
       // TODO : Decrypt dari server, pake shared B
       setChatData((prevData) => [
