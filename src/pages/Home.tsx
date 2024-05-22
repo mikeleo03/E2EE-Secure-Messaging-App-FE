@@ -107,7 +107,6 @@ const Home: React.FC = () => {
 
   return (
     <>
-      <TutorialModal />
       <NewTopicModal />
       {is_loading ? (
         <Loading />

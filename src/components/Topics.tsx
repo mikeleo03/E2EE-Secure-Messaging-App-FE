@@ -33,27 +33,6 @@ const Topics: React.FC<TopicsProps> = ({ className, topics }) => {
     return moment(date).isAfter(moment().subtract(1, 'hours'));
   };
 
-  useEffect(() => {
-    const cookie = new Cookies();
-    const cookies = cookie.getAll();
-    console.log(cookies.promotion);
-    if (!cookies.promotion) {
-      cookie.set('promotion', Date().toString(), {
-        path: '/',
-        domain: config.DOMAIN_URL,
-      });
-      dispatch(setPromotionModal(true));
-    } else {
-      if (!lessThanOneHourAgo(cookies.promotion)) {
-        cookie.set('promotion', Date().toString(), {
-          path: '/',
-          domain: config.DOMAIN_URL,
-        });
-        dispatch(setPromotionModal(true));
-      }
-    }
-  }, []);
-
   return (
     <>
       <PromotionModal />
