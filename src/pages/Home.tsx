@@ -139,7 +139,7 @@ const Home: React.FC = () => {
       {is_loading ? (
         <Loading />
       ) : (
-        <div className="bg-white w-[100vw] h-[100vh] relative py-8">
+        <div className="bg-white w-full h-[100vh] relative py-8">
           <HomeGraphics />
           <div className="flex flex-col items-center text-center">
             <Identity name={userData?.name} nim={userData?.username}></Identity>

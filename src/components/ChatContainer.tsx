@@ -1,5 +1,7 @@
 /* eslint-disable max-len */
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 import { AiOutlineSend } from 'react-icons/ai';
 import { ChatData } from '../interfaces/chat';
 import socket from '../socket';
@@ -58,6 +60,8 @@ const ChatContainer: React.FC<ChatContainerProps> = ({
           { message: content, isFromMe: false },
           ...prevData,
         ]);
+      } else {
+        toast.error("Our secure connection has expired. To re-establish it, please end this chat and try again.");
       }
     });
   }, []);
@@ -81,7 +85,7 @@ const ChatContainer: React.FC<ChatContainerProps> = ({
           ...prevData,
         ]);
       } else {
-        console.log('No shared key found');
+        toast.error("Our secure connection has expired. To re-establish it, please end this chat and try again.");
       }
     }
   };
@@ -94,6 +98,20 @@ const ChatContainer: React.FC<ChatContainerProps> = ({
   };
 
   return (
+    <>
+    <ToastContainer
+      position="bottom-right"
+      className="w-40"
+      autoClose={5000}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+      theme="light"
+    />
     <div className="bg-white h-[100%] w-[777px] lg:w-[450px] xl:w-[500px] xxl:w-[600px] 3xl:w-[680px] rounded-[15px]">
       <div className="h-[15%] lg:hidden">
         <Dialogist dialogist={dialogist} handleReveal={handleReveal} />
@@ -122,6 +140,7 @@ const ChatContainer: React.FC<ChatContainerProps> = ({
         </div>
       </div>
     </div>
+    </>
   );
 };
 
