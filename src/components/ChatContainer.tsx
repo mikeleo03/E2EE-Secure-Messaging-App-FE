@@ -38,13 +38,26 @@ const ChatContainer: React.FC<ChatContainerProps> = ({
   }, []);
 
   useEffect(() => {
-    socket.on('message', async ({ encrypted }) => {
+    socket.on('messageReceive', async ({ encrypted }) => {
+      // RECEIVER RECEIVING MESSAGE PROTOCOL
+      // Get the shared keys from local storage
+      const userSharedSecret = localStorage.getItem(socket.id);
+      if (userSharedSecret) {
+        const { x, y } = JSON.parse(userSharedSecret);
+        const sharedSecret = new ECPoint(BigInt(x as string), BigInt(y as string));
 
-      // TODO : Decrypt dari server, pake shared B
-      setChatData((prevData) => [
-        { message: content, isFromMe: socket.id === from },
-        ...prevData,
-      ]);
+        // Server decrypts the message from Sender
+        const plaintextUserServer = await CryptoNight.decryptFromHex(encrypted, deriveKeys(sharedSecret));
+
+        // Parse the response
+        const { content, from } = JSON.parse(plaintextUserServer);
+        console.log('Decrypted (Server-Receiver):', content);
+
+        setChatData((prevData) => [
+          { message: content, isFromMe: false },
+          ...prevData,
+        ]);
+      }
     });
   }, []);
 
@@ -62,6 +75,10 @@ const ChatContainer: React.FC<ChatContainerProps> = ({
         console.log('Encrypted (Sender-Server):', ciphertextAliceServer);
         socket.emit('message', { encrypted: ciphertextAliceServer });
         setMessage('');
+        setChatData((prevData) => [
+          { message: message, isFromMe: true },
+          ...prevData,
+        ]);
       } else {
         console.log('No shared key found');
       }
