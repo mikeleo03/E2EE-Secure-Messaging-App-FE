@@ -21,6 +21,8 @@ import { setRoomId } from '../redux/actions/room';
 import authServices from '../services/auth-services';
 import HomeGraphics from '../components/HomeGraphics';
 import OnlineUsers from '../components/OnlineUsers';
+import { computeSharedSecret, generateKeyPair } from '../algorithms/ECDH/ECDHUtils'
+import { ECPoint, EllipticCurve } from '../algorithms/ECC/EllipticCurve';
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
@@ -29,12 +31,24 @@ const Home: React.FC = () => {
   const { userData, topic } = useSelector(authSelector);
 
   const [onlineUsers, setOnlineUsers] = useState(0);
+  const [userPrivateKey, setUserPrivateKey] = useState('');
+
+  // Define the curve
+  const curve = new EllipticCurve();
 
   const handleRedirectFindMatch: React.MouseEventHandler<
     HTMLButtonElement
   > = () => {
     if (topic != -1 && topic != topicData.length + 1) {
-      socket.emit('matchmaking', topic.toString());
+      // HANDSAKING
+      // SEND ACK TO SERVER
+      // User's key pair
+      const userKeys = generateKeyPair(curve);
+      const privateKey = userKeys.privateKey.toString();
+      setUserPrivateKey(privateKey);
+      console.log(privateKey);
+      console.log(userPrivateKey);
+      socket.emit('handshakeServer', userKeys.publicKey.toString());
     } else {
       message.error('Select a topic!');
     }
@@ -69,6 +83,18 @@ const Home: React.FC = () => {
     }
   };
 
+  // Define a function to compute the shared secret
+  const computeSharedSecretAndMatchmaking = (serverPublicKey: string, privateKey: string) => {
+    const serverPublic = ECPoint.fromString(serverPublicKey);
+    const userServerSharedSecret = computeSharedSecret(BigInt(privateKey), serverPublic, curve);
+    // Store the key to localStorage
+    const data = JSON.stringify({ x: userServerSharedSecret.x.toString(), y: userServerSharedSecret.y.toString() });
+    if (userData) {
+      localStorage.setItem(userData.username as string, data);
+      socket.emit('matchmaking', topic.toString());
+    }
+  };
+
   useEffect(() => {
     socket.auth = { token };
     connectSocket();
@@ -96,6 +122,11 @@ const Home: React.FC = () => {
       navigate('/connection-error', { replace: true });
     });
 
+    socket.on('handshakeClient', (serverPublicKey: string) => {
+      console.log(userPrivateKey);
+      computeSharedSecretAndMatchmaking(serverPublicKey, userPrivateKey);
+    });
+
     socket.on('matched', (roomId) => {
       dispatch(setTopic(-1));
       navigate('/chat');
@@ -103,7 +134,7 @@ const Home: React.FC = () => {
     });
 
     socket.emit('getOnlineUsers');
-  }, []);
+  }, [userPrivateKey]);
 
   return (
     <>
