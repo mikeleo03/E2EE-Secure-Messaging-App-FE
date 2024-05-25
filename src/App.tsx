@@ -141,7 +141,7 @@ const App: React.FC = () => {
     }
 
     if (location.pathname === '/history') {
-      setTitle('Hisotry');
+      setTitle('History');
       setDescription('Chat history');
     }
     if (location.pathname === '/matchmaking') {
