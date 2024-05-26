@@ -11,6 +11,8 @@ import { CryptoNight } from '../algorithms/cryptonight';
 import { deriveKeys } from '../algorithms/ECDH/ECDHUtils';
 import { ECPoint } from '../algorithms/ECC/EllipticCurve';
 import { getWithExpiry } from '../utils/expiryStorage';
+import SchnorrSignature from '../algorithms/Schnorr/schnorr_signature';
+import { unicodeToHex } from '../utils/string_converter';
 
 interface ChatContainerProps {
   myName?: string;
@@ -42,7 +44,12 @@ const ChatContainer: React.FC<ChatContainerProps> = ({
   }, []);
 
   useEffect(() => {
-    socket.on('messageReceive', async ({ encrypted }) => {
+    socket.on('messageReceive', async ({ encrypted, isSigned, signature }) => {
+      const parsed = JSON.parse(signature);
+      const e = parsed.e as string;
+      const f = parsed.y as string; // Because y is used in other parts of the code, we use f here
+      const publicKey = parsed.publicKey as string;
+      
       // RECEIVER RECEIVING MESSAGE PROTOCOL
       // Get the shared keys from local storage
       const userSharedSecret = getWithExpiry(socket.id);
@@ -62,6 +69,14 @@ const ChatContainer: React.FC<ChatContainerProps> = ({
         // Parse the response
         const { content, from } = JSON.parse(plaintextUserServer);
         console.log('Decrypted (Server-Receiver):', content);
+
+        let verified: boolean = true;
+        if (isSigned) {
+          const hexMessage = "0x" + unicodeToHex(content);
+          verified = SchnorrSignature.verifySchnorrSignature(BigInt(hexMessage), [BigInt("0x" + e), BigInt("0x" + f)], BigInt("0x" + publicKey));
+        }
+
+        console.log(verified);
 
         setChatData((prevData) => [
           { message: content, isFromMe: false },
@@ -88,19 +103,14 @@ const ChatContainer: React.FC<ChatContainerProps> = ({
         );
 
         let messageContent = message;
-        if (signMessage) {
-          // Add your signing logic here
-          // TODO : Connect it
-          // messageContent = sign(messageContent);
-        }
 
         // User sent the message to Server using shared secret between User and Server
         const ciphertextAliceServer = await CryptoNight.encryptToHex(
           messageContent,
           deriveKeys(sharedSecret)
         );
-        console.log('Encrypted (Sender-Server):', ciphertextAliceServer);
-        socket.emit('message', { encrypted: ciphertextAliceServer });
+
+        socket.emit('message', { encrypted: ciphertextAliceServer, isSigned: signMessage });
         setMessage('');
         setChatData((prevData) => [
           { message: messageContent, isFromMe: true },
